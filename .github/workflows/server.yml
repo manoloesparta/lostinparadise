@@ -6,13 +6,13 @@ on:
     paths:
     - 'server/**'
     branches: 
-    - main 
+    - server 
   
   pull_request:
     paths:
     - 'server/**'
     branches:
-    - main
+    - server 
   
   workflow_dispatch:
 
@@ -44,9 +44,7 @@ jobs:
         run: |
           python -m black . --check
       
-      - name: Run tests and upload to coveralls
-        env:
-          COVERALLS_REPO_TOKEN: ${{ secrets.SERVER_COVERALLS_TOKEN }}
+      - name: Run tests and print report
         run: |
           python -m coverage run -m pytest tests/unit
-          python -m coveralls
+          python -m coverage report -m
