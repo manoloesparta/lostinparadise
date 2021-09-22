@@ -11,10 +11,14 @@ setup:
 start:
 	echo "start api"
 
-.PHONY: tests
-tests:
+.PHONY: unti 
+unit:
 	$(PYTHON) -m coverage run -m pytest tests/unit
 	$(PYTHON) -m coverage report -m
+
+.PHONY: int
+int:
+	echo "running integration tests"
 
 .PHONY: format 
 format:

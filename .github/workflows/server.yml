@@ -1,16 +1,16 @@
-name: Pypi 
+name: Server 
 
 on:
 
   push:
     paths:
-    - server/
+    - 'server/**'
     branches: 
     - main 
   
   pull_request:
     paths:
-    - server/
+    - 'server/**'
     branches:
     - main
   
@@ -27,7 +27,7 @@ jobs:
       run:
         working-directory: server
 
-    step:
+    steps:
       - uses: actions/checkout@v2
 
       - name: Setup python 3.9
@@ -48,7 +48,5 @@ jobs:
         env:
           COVERALLS_REPO_TOKEN: ${{ secrets.SERVER_COVERALLS_TOKEN }}
         run: |
-          python -m coverage run -m pytest
+          python -m coverage run -m pytest tests/unit
           python -m coveralls
-      
-      
