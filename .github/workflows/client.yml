@@ -29,3 +29,20 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+
+      - name: Setup Node 14
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+      
+      - name: Install dependencies
+        run: |
+          npm install
+
+      - name: Run linter
+        run: |
+          npm run lint
+      
+      - name: Run tests and print report
+        run: |
+          npm run test --watchAll=false -- --coverage
