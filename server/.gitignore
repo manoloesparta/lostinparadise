@@ -12,6 +12,7 @@ venv/
 
 # Tests
 .coverage
+.pytest_cache/
 
 # Builds
 .eggs/

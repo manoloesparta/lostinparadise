@@ -1,1 +1,3 @@
-# i miss u
+# Lost in Paradise
+
+> Funky music starts

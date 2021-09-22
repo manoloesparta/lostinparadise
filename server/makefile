@@ -5,6 +5,7 @@ PIP = venv/bin/pip
 setup:
 	virtualenv -p $(env) venv
 	$(PIP) install -r requirements.txt
+	$(PIP) install -e .
 
 .PHONY:
 start:
@@ -12,7 +13,7 @@ start:
 
 .PHONY: tests
 tests:
-	$(PYTHON) -m coverage run -m pytest
+	$(PYTHON) -m coverage run -m pytest tests/unit
 	$(PYTHON) -m coverage report -m
 
 .PHONY: format 
