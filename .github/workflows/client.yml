@@ -6,13 +6,13 @@ on:
     paths:
     - 'client/**'
     branches: 
-    - main 
+    - client 
   
   pull_request:
     paths:
     - 'client/**'
     branches:
-    - main
+    - client 
   
   workflow_dispatch:
 
