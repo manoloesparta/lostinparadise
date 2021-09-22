@@ -20,7 +20,7 @@ jobs:
 
   verify-standards:
 
-    name: Checking standards pipeline
+    name: Checking standards server pipeline
     runs-on: ubuntu-latest
 
     defaults:
@@ -44,7 +44,7 @@ jobs:
         run: |
           python -m black . --check
       
-      - name: Run tests and upload to converalls
+      - name: Run tests and upload to coveralls
         env:
           COVERALLS_REPO_TOKEN: ${{ secrets.SERVER_COVERALLS_TOKEN }}
         run: |

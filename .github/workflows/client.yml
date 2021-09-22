@@ -20,7 +20,7 @@ jobs:
 
   verify-standards:
 
-    name: Checking standards pipeline
+    name: Checking standards client pipeline
     runs-on: ubuntu-latest
 
     defaults:
