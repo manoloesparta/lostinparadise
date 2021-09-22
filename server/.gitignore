@@ -1,0 +1,20 @@
+# enviroment
+venv/
+.vscode/
+.envrc
+
+# OS specific
+.DS_Store
+
+# Python
+**/__pycache__/
+**.pyc
+
+# Tests
+.coverage
+
+# Builds
+.eggs/
+dist/
+build/
+*.egg-info/
