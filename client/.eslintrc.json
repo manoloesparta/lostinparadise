@@ -22,6 +22,7 @@
         "jest"
     ],
     "rules": {
-        "require-jsdoc": "off"
+        "require-jsdoc": "off",
+        "linebreak-style": 0
     }
 }
