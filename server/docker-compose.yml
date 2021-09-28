@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+
+  flask:
+    build: .
+    image: lostinp_server
+    container_name: server
+    depends_on:
+      - mongo
+    ports:
+      - 5000:5000
+    volumes:
+      - .:/usr/src
+    networks:
+      - lostinp_network
+    environment:
+      ENV: development
+  
+  mongo:
+    image: mongo
+    container_name: mongo 
+    ports:
+      - 27017:27017
+    volumes:
+      - ./data/:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: toor 
+
+networks:
+
+  lostinp_network:
+    name: lostinp_network
+    driver: bridge
+
+volumes:
+
+  lostinp_volume:
