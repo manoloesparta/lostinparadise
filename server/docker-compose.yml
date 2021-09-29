@@ -15,7 +15,7 @@ services:
     networks:
       - lostinp_network
     environment:
-      ENV: development
+      ENV: production 
   
   mongo:
     image: mongo

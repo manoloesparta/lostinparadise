@@ -11,15 +11,15 @@ def app_factory(env):
 
     app.register_blueprint(users_module)
 
-    def wrapper():
+    def app_runner():
         if env.lower() in ["production", "prod"]:
-            run_simple(
+            return run_simple(
                 hostname="0.0.0.0",
                 port=80,
                 application=app,
                 use_debugger=False,
                 use_reloader=False,
             )
-        app.run(host="0.0.0.0", port=5000, debug=True)
+        return app.run(host="0.0.0.0", port=5000, debug=True)
 
-    return wrapper
+    return app_runner
