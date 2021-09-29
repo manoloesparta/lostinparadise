@@ -2,7 +2,7 @@ version: '3'
 
 services:
 
-  flask:
+  server:
     build: .
     image: lostinp_server
     container_name: server
@@ -24,9 +24,13 @@ services:
       - 27017:27017
     volumes:
       - ./data/:/data/db
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+    networks:
+      - lostinp_network
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: toor 
+      MONGO_INITDB_ROOT_PASSWORD: toor
+      MONGO_INITDB_DATABASE: lost_in_paradise
 
 networks:
 

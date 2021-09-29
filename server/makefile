@@ -7,8 +7,12 @@ setup:
 	$(PIP) install -r requirements.txt
 
 .PHONY:
+build:
+	docker-compose up --build
+
+.PHONY:
 start:
-	$(PYTHON) start.py
+	docker-compose up
 
 .PHONY: tests 
 tests:
