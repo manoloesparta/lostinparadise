@@ -1,7 +1,7 @@
 import mongomock
 from pytest import fixture, raises
 
-from tests.helpers.data import empty_collection, insert_collection
+from tests.helpers.mongo import empty_collection, insert_collection
 from lostinp.utils.exceptions import DuplicateException, NotFoundException
 from tests.utils.mocks.dbhandler import (
     DATA_MOCK,
