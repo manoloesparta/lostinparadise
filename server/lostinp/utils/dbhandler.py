@@ -1,10 +1,11 @@
 import pymongo
-from lostinp.utils.exceptions import DuplicateException, NotFoundException
+from lostinp.utils.config import CONFIG
+from lostinp.utils.exceptions import DocumentNotFound, DuplicateDocumentId
 
 
 class DbHandler:
 
-    client = pymongo.MongoClient("mongodb://root:toor@mongo:27017/lost_in_paradise")
+    client = pymongo.MongoClient(CONFIG.get_value("MONGO_CONN_STRING"))
     database = client["lost_in_paradise"]
 
     def __init__(self, collection):
@@ -13,7 +14,7 @@ class DbHandler:
     def get_document(self, query):
         result = self.collection.find_one(query)
         if not result:
-            raise NotFoundException("No document found with query filter: %s" % query)
+            raise DocumentNotFound("No document found with query filter: %s" % query)
         return result
 
     def insert_document(self, insert):
@@ -22,13 +23,13 @@ class DbHandler:
             self.collection.insert_one(insert)
             print(insert)
         except:
-            raise DuplicateException("Document %s already exists" % insert)
+            raise DuplicateDocumentId("Document %s already exists" % insert)
 
     def update_document(self, query, update):
         update_doc = {"$set": update}
         result = self.collection.update_one(query, update_doc)
         if result.matched_count == 0:
-            raise NotFoundException("No document found with query filter: %s" % query)
+            raise DocumentNotFound("No document found with query filter: %s" % query)
 
     def upsert_document(self, query, upsert):
         upsert_doc = {"$set": upsert}
@@ -37,4 +38,4 @@ class DbHandler:
     def delete_document(self, query):
         result = self.collection.delete_one(query)
         if result.deleted_count == 0:
-            raise NotFoundException("No document found with query filter: %s" % query)
+            raise DocumentNotFound("No document found with query filter: %s" % query)

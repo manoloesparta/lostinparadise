@@ -1,6 +1,14 @@
-class NotFoundException(Exception):
+class DocumentNotFound(Exception):
     pass
 
 
-class DuplicateException(Exception):
+class DuplicateDocumentId(Exception):
+    pass
+
+
+class InvalidEnvironment(Exception):
+    pass
+
+
+class EnvironmentValueNotFound(Exception):
     pass
