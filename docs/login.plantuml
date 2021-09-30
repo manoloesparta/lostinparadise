@@ -1,0 +1,42 @@
+@startuml Login Functionality
+
+actor User
+participant "Login\nController" as Controller
+participant "Authentication\nService" as AuthService
+database "User\nRepository" as UserRepo
+
+User -> Controller: Credentials
+Controller -> AuthService: Redirect Crendetials
+
+alt Valid credentials
+
+    AuthService -> Controller: Authorized
+
+    alt Register
+
+        Controller -> UserRepo: First time login?
+
+        alt First Time Login
+
+            UserRepo -> Controller: Yes
+            Controller -> UserRepo: Save user
+
+        else Already registered
+
+            UserRepo -> Controller: No
+            Controller -> UserRepo: Increment visit counter
+
+        end
+
+    end
+    
+    Controller -> User: Auth Token
+
+else Invalid credentials
+
+    AuthService -> Controller : Unauthorized
+    Controller -> User: Bad Request
+
+end
+
+@enduml

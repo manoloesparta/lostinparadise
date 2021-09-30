@@ -4,7 +4,7 @@ These are the API endpoints the client will be communicating to.
 
 ## Users
 
-* POST /login
+* POST /users/login
 
     Request
 
@@ -25,7 +25,7 @@ These are the API endpoints the client will be communicating to.
     {
         "statusCode": 200,
         "message": {
-            "X-Jwt-Token": "blah.blah.blah"
+            "X-Jwt-key": "blah.blah.blah"
         }
     }
     ```
@@ -39,32 +39,9 @@ These are the API endpoints the client will be communicating to.
     }
     ```
 
-    * POST /logout
-
-    Request
-
-    ```json
-    {
-        "header": {
-            "X-Jwt-Token": "blah.blah.blah"
-        }
-    }
-    ```
-
-    Response
-
-    > Token invalidated
-
-    ```json
-    {
-        "status": 200,
-        "message": "logout succesfully"
-    }
-    ```
-
 ## Search
 
-* POST /search
+* POST /lost/search
 
     Request
 
