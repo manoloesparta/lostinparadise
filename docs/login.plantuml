@@ -11,25 +11,20 @@ Controller -> AuthService: Redirect Crendetials
 alt Valid credentials
 
     AuthService -> Controller: Authorized
+    Controller -> UserRepo: First time login?
 
-    alt Register
+    alt First time login
 
-        Controller -> UserRepo: First time login?
+        UserRepo -> Controller: Yes
+        Controller -> UserRepo: Save user
 
-        alt First Time Login
+    else Already registered
 
-            UserRepo -> Controller: Yes
-            Controller -> UserRepo: Save user
-
-        else Already registered
-
-            UserRepo -> Controller: No
-            Controller -> UserRepo: Increment visit counter
-
-        end
+        UserRepo -> Controller: No
+        Controller -> UserRepo: Increment visit counter
 
     end
-    
+
     Controller -> User: Auth Token
 
 else Invalid credentials
