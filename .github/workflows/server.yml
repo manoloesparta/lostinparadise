@@ -46,5 +46,5 @@ jobs:
       
       - name: Run tests and print report
         run: |
-          python -m coverage run -m pytest tests/unit
+          python -m coverage run -m pytest tests
           python -m coverage report -m

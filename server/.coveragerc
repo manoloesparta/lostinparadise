@@ -4,7 +4,6 @@ omit =
 	**/venv/**
 
 	# Project specific
-	**/__init__.py
 	tests/**
 
 [report]
@@ -13,3 +12,4 @@ exclude_lines =
 	def __str__
 	def __repr__
 	def __init__
+skip_empty = true
