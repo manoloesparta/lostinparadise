@@ -19,9 +19,7 @@ class DbHandler:
 
     def insert_document(self, insert):
         try:
-            print(insert)
             self.collection.insert_one(insert)
-            print(insert)
         except:
             raise DuplicateDocumentId("Document %s already exists" % insert)
 

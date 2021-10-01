@@ -26,7 +26,7 @@ class Configuration:
         self.env_dict = {
             "SERVER_PORT": 5000,
             "MONGO_CONN_STRING": "mongodb://root:toor@mongo:27017",
-            "AUTH_SERVICE_BASE_URL": "http://localhost:5000/auth"
+            "AUTH_SERVICE_BASE_URL": "http://localhost:5000/auth",
         }
 
 
