@@ -8,7 +8,7 @@ class UsersRepo:
 
     def __init__(self, db_handler: DbHandler):
         self.db_handler = db_handler
-    
+
     def first_time_login(self, user: User) -> bool:
         try:
             self.db_handler.get_document(user.username)
