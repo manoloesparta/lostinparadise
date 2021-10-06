@@ -1,5 +1,7 @@
 import React from 'react';
-import {ReactComponent as Logo} from '../logo.svg';
+// import {ReactComponent as Logo} from '../logo192.png';
+import logo from '../cetys.png';
+import './login.css';
 class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -10,8 +12,9 @@ class Login extends React.Component {
   }
 
   handleChange(e) {
-    const {name, value} = e.target;
-    this.setState({[name]: value});
+    // const {name, value} = e.target;
+    // this.setState({[name]: value});
+    console.log(e.target.value);
   }
 
   handleSubmit(e) {
@@ -19,9 +22,9 @@ class Login extends React.Component {
   }
   render() {
     return (
-      <div>
+      <div id="login-form">
         <div>
-          <Logo />
+          <img src={logo} id="logo"></img>
         </div>
         <div>
           <form onSubmit={this.handleSubmit}>
