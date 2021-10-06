@@ -19,7 +19,6 @@ def mocked_wsgi():
 
 def test_app_factory_in_development(mocked_flask):
     app = app_factory("dev")
-    print("whaterver")
     app()
     mocked_flask.assert_called_once()
 
