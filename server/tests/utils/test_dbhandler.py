@@ -17,10 +17,11 @@ from tests.utils.mocks.dbhandler import (
 @fixture
 def mocked_mongo():
     with mongomock.patch(servers=(("mongo", 27017),)):
-        from lostinp.utils.dbhandler import DbHandler
+        from lostinp.utils.dbhandler import MongoHandler
 
-        handler = DbHandler()
+        handler = MongoHandler()
         handler.set_collection("random_collection")
+
         insert_collection(handler, DATA_MOCK)
         yield handler
         empty_collection(handler)

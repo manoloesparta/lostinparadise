@@ -1,4 +1,5 @@
 import pymongo
+from lostinp.utils.interfaces import DbHandler
 from lostinp.utils.config import CONFIG
 from lostinp.utils.exceptions import (
     DocumentNotFound,
@@ -7,7 +8,7 @@ from lostinp.utils.exceptions import (
 )
 
 
-class DbHandler:
+class MongoHandler(DbHandler):
 
     client = pymongo.MongoClient(CONFIG.get_value("MONGO_CONN_STRING"))
     database = client["lost_in_paradise"]
