@@ -2,7 +2,7 @@ import mongomock
 from pytest import fixture, raises
 
 from tests.helpers.mongo import empty_collection, insert_collection
-from lostinp.utils.exceptions import DuplicateException, NotFoundException
+from lostinp.utils.exceptions import DocumentNotFound, DuplicateDocumentId
 from tests.utils.mocks.dbhandler import (
     DATA_MOCK,
     EXISTING_DATA_MOCK,
@@ -19,7 +19,8 @@ def mocked_mongo():
     with mongomock.patch(servers=(("mongo", 27017),)):
         from lostinp.utils.dbhandler import DbHandler
 
-        handler = DbHandler("random_collection")
+        handler = DbHandler()
+        handler.set_collection("random_collection")
         insert_collection(handler, DATA_MOCK)
         yield handler
         empty_collection(handler)
@@ -32,12 +33,12 @@ def test_get_existing_doc(mocked_mongo):
 
 
 def test_get_non_existing_doc(mocked_mongo):
-    with raises(NotFoundException):
+    with raises(DocumentNotFound):
         mocked_mongo.get_document(NON_EXISTING_DATA_MOCK)
 
 
 def test_insert_existing_doc(mocked_mongo):
-    with raises(DuplicateException):
+    with raises(DuplicateDocumentId):
         mocked_mongo.insert_document(EXISTING_DATA_MOCK)
 
 
@@ -56,7 +57,7 @@ def test_update_existing_doc(mocked_mongo):
 
 
 def test_update_non_existing_doc(mocked_mongo):
-    with raises(NotFoundException):
+    with raises(DocumentNotFound):
         mocked_mongo.update_document(NON_EXISTING_QUERY_FILTER_MOCK, EXISTING_DATA_MOCK)
 
 
@@ -76,10 +77,10 @@ def test_upsert_non_existing_doc(mocked_mongo):
 
 def test_delete_existing_doc(mocked_mongo):
     mocked_mongo.delete_document(QUERY_FILTER_MOCK)
-    with raises(NotFoundException):
+    with raises(DocumentNotFound):
         mocked_mongo.get_document(QUERY_FILTER_MOCK)
 
 
 def test_delete_non_existing_doc(mocked_mongo):
-    with raises(NotFoundException):
+    with raises(DocumentNotFound):
         mocked_mongo.delete_document(NON_EXISTING_QUERY_FILTER_MOCK)

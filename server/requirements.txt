@@ -11,7 +11,7 @@ behave==1.2.6
 mongomock==3.23.0
 
 # Production
-Werkzeug==2.0.1
+gevent==21.8.0
 
 # Dev tools
 black==21.9b0

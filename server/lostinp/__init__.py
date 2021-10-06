@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_cors import CORS
-from werkzeug.serving import run_simple
+from gevent.pywsgi import WSGIServer
+from lostinp.utils.config import CONFIG
 
 
 def app_factory(env):
@@ -12,14 +13,15 @@ def app_factory(env):
     app.register_blueprint(users_module)
 
     def app_runner():
-        if env.lower() in ["production", "prod"]:
-            return run_simple(
-                hostname="0.0.0.0",
-                port=80,
+        port = CONFIG.get_value("SERVER_PORT")
+
+        if env.lower() == "prod":
+            http_server = WSGIServer(
+                listener=("0.0.0.0", port),
                 application=app,
-                use_debugger=False,
-                use_reloader=False,
             )
-        return app.run(host="0.0.0.0", port=5000, debug=True)
+            return http_server.serve_forever()
+
+        return app.run(host="0.0.0.0", port=port, debug=True)
 
     return app_runner
