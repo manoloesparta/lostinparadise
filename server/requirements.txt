@@ -10,9 +10,6 @@ pytest==6.2.5
 behave==1.2.6
 mongomock==3.23.0
 
-# Production
-gevent==21.8.0
-
 # Dev tools
 black==21.9b0
 coverage==5.5.0
