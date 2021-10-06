@@ -9,13 +9,14 @@ from tests.repos.mocks.users import REGISTERED_USER, USERS_DICT_MOCK, UNREGISTER
 @fixture()
 def mocked_repo():
     with mongomock.patch(servers=(("mongo", 27017),)):
-        from lostinp.utils.dbhandler import DbHandler
+        from lostinp.utils.dbhandler import MongoHandler
         from lostinp.repos.users import UsersRepo
 
-        handler = DbHandler()
-        handler.set_collection(UsersRepo.collection_name)
+        handler = MongoHandler()
+        repo = UsersRepo(handler)
+
         insert_collection(handler, USERS_DICT_MOCK)
-        yield UsersRepo(handler)
+        yield repo
         empty_collection(handler)
 
 
