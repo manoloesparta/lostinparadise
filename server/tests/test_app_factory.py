@@ -11,7 +11,7 @@ def mocked_flask():
 
 
 @fixture
-def mocked_run():
+def mocked_wsgi():
     with patch("lostinp.WSGIServer") as mock:
         mock.side_effect = None
         yield mock

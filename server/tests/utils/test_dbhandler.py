@@ -19,7 +19,8 @@ def mocked_mongo():
     with mongomock.patch(servers=(("mongo", 27017),)):
         from lostinp.utils.dbhandler import DbHandler
 
-        handler = DbHandler("random_collection")
+        handler = DbHandler()
+        handler.set_collection("random_collection")
         insert_collection(handler, DATA_MOCK)
         yield handler
         empty_collection(handler)

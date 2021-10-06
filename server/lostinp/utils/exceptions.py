@@ -12,3 +12,7 @@ class InvalidEnvironment(Exception):
 
 class EnvironmentValueNotFound(Exception):
     pass
+
+
+class CollectionNotSpecified(Exception):
+    pass

@@ -8,10 +8,12 @@ class UsersRepo:
 
     def __init__(self, db_handler: DbHandler):
         self.db_handler = db_handler
+        self.db_handler.set_collection(self.collection_name)
 
     def first_time_login(self, user: User) -> bool:
         try:
-            self.db_handler.get_document(user.username)
+            query = {"username": user.username}
+            self.db_handler.get_document(query)
             return False
         except DocumentNotFound:
             return True
