@@ -1,0 +1,28 @@
+@startuml Lost Items Functionality
+
+actor User
+participant "Lost Items\nController" as Controller
+participant "Token\nService" as Token
+database "User\nRepository" as UserRepo
+database "Lost Items\n Repository" as LostRepo
+
+User -> Controller: Token
+Controller -> Token: Get username claim
+Token -> Controller: Username
+Controller -> UserRepo: User registered?
+
+alt Username registered
+
+    UserRepo -> Controller: Yes
+    Controller -> LostRepo: Get lost items
+    LostRepo -> Controller: Lost items
+    Controller -> User: Lost items
+
+else Username not registered
+
+    UserRepo -> Controller: No
+    Controller -> User: Unauthorized
+
+end
+
+@enduml

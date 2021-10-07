@@ -5,6 +5,7 @@ omit =
 
 	# Project specific
 	tests/**
+	lostinp/utils/interfaces.py
 
 [report]
 exclude_lines = 
