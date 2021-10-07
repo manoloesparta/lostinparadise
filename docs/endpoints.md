@@ -4,7 +4,11 @@ These are the API endpoints the client will be communicating to.
 
 ## Users
 
+<<<<<<< HEAD
 * POST /users/login
+=======
+* POST /login
+>>>>>>> efb6eed718f8124dc2ce942bf46c267f7ee2ed1b
 
     Request
 

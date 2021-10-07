@@ -10,7 +10,7 @@ class UsersRepo:
         self.db_handler = db_handler
         self.db_handler.set_collection(self.collection_name)
 
-    def first_time_login(self, user: User) -> bool:
+    def is_user_registered(self, user: User) -> bool:
         try:
             query = {"username": user.username}
             self.db_handler.get_document(query)

@@ -1,12 +1,11 @@
-from unittest import mock
 import mongomock
-from pytest import fixture, raises
+from pytest import fixture
 
 from tests.helpers.mongo import insert_collection, empty_collection
 from tests.repos.mocks.users import REGISTERED_USER, USERS_DICT_MOCK, UNREGISTERED_USER
 
 
-@fixture()
+@fixture
 def mocked_repo():
     with mongomock.patch(servers=(("mongo", 27017),)):
         from lostinp.utils.dbhandler import MongoHandler
@@ -20,13 +19,13 @@ def mocked_repo():
         empty_collection(handler)
 
 
-def test_first_time_login_with_unregistered_user(mocked_repo):
-    response = mocked_repo.first_time_login(UNREGISTERED_USER)
+def test_is_user_registered_with_unregistered_user(mocked_repo):
+    response = mocked_repo.is_user_registered(UNREGISTERED_USER)
     assert response
 
 
-def test_first_time_login_with_registered_user(mocked_repo):
-    response = mocked_repo.first_time_login(REGISTERED_USER)
+def test_is_user_registered_with_registered_user(mocked_repo):
+    response = mocked_repo.is_user_registered(REGISTERED_USER)
     assert not response
 
 

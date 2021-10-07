@@ -1,6 +1,6 @@
 from pytest import fixture
-from lostinp.services.authentication import MockedAuthService
 
+from lostinp.services.authentication import MockedAuthService
 from tests.services.mocks.authentication import VALID_CREDENTIALS, INVALID_CREDENTIALS
 
 

@@ -3,6 +3,7 @@
 actor User
 participant "Login\nController" as Controller
 participant "Authentication\nService" as AuthService
+participant "Token\nService" as TokenService
 database "User\nRepository" as UserRepo
 
 User -> Controller: Credentials
@@ -11,21 +12,23 @@ Controller -> AuthService: Redirect Crendetials
 alt Valid credentials
 
     AuthService -> Controller: Authorized
-    Controller -> UserRepo: First time login?
+    Controller -> UserRepo: User registered?
 
-    alt First time login
+    alt Register user
 
         UserRepo -> Controller: Yes
         Controller -> UserRepo: Save user
 
-    else Already registered
+    else Increment visit counter
 
         UserRepo -> Controller: No
         Controller -> UserRepo: Increment visit counter
 
     end
 
-    Controller -> User: Auth Token
+    Controller -> TokenService: Generate token with username claim
+    TokenService -> Controller: Token
+    Controller -> User: Token
 
 else Invalid credentials
 

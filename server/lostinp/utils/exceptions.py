@@ -16,3 +16,11 @@ class EnvironmentValueNotFound(Exception):
 
 class CollectionNotSpecified(Exception):
     pass
+
+
+class InvalidToken(Exception):
+    pass
+
+
+class ClaimNotFound(Exception):
+    pass
