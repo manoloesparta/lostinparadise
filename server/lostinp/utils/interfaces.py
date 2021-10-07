@@ -3,6 +3,10 @@ from abc import abstractmethod
 
 class DbHandler:
     @abstractmethod
+    def set_collection(self, collection):
+        pass
+
+    @abstractmethod
     def get_document(self, query):
         pass
 
@@ -35,5 +39,5 @@ class TokenService:
         pass
 
     @abstractmethod
-    def get_username_claim(self, token, key):
+    def get_username_claim(self, token):
         pass

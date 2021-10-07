@@ -8,6 +8,9 @@ from lostinp.utils.exceptions import InvalidToken, ClaimNotFound
 
 
 class JwtService(TokenService):
+    def __init__(self, secret=CONFIG.get_value("SECRET")):
+        self.secret = secret
+
     def create_user_token(self, username):
         now = datetime.now()
         claims = {
@@ -15,12 +18,15 @@ class JwtService(TokenService):
             "exp": now + timedelta(days=1),
             "username": username,
         }
-        token = jwt.encode(claims, CONFIG.get_value("SECRET"))
+        token = jwt.encode(claims, self.secret, algorithm="HS256")
         return token
 
-    def get_claim(self, token, key):
+    def get_username_claim(self, token):
+        return self._get_claim(token, "username")
+
+    def _get_claim(self, token, key):
         try:
-            claims = jwt.decode(token, CONFIG.get_value("SECRET"))
+            claims = jwt.decode(token, self.secret, algorithms=["HS256"])
             return claims[key]
         except InvalidTokenError:
             raise InvalidToken("Token provided is invalid")
