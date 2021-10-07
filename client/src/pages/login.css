@@ -1,16 +1,16 @@
 input{
-    width: 50%;
+    width: 35%;
     border: 1px solid #dbdbdb;
     padding: 5px;
     margin: 2px 0;
     border-radius: 5px;
     background-color: #fafafa;
-    box-shadow: none;
+    box-shadow: 1px;
     font-family: 'Open Sans Condensed', sans-serif;
 }
 
 button{
-    width: 50%;
+    width: 33%;
     margin: 5px 0;
     background-color: dodgerblue;
     font-family: 'Open Sans Condensed', sans-serif;
@@ -19,4 +19,9 @@ button{
     border: none;
     color: white;
     border-radius: 5px;
+}
+
+#login-form{
+    padding-top: 7%;
+    height: 100%;
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 // import {ReactComponent as Logo} from '../logo192.png';
-import logo from '../cetys.png';
+import logo from '../cetys_logo.jpg';
 import './login.css';
 class Login extends React.Component {
   constructor(props) {
@@ -10,6 +10,7 @@ class Login extends React.Component {
       password: '',
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(e) {
@@ -20,7 +21,8 @@ class Login extends React.Component {
   }
 
   handleSubmit(e) {
-
+    e.preventDefault();
+    console.log(this.state);
   }
   render() {
     return (
@@ -34,11 +36,13 @@ class Login extends React.Component {
               name='matricula'
               placeholder='matricula'
               required onChange={this.handleChange} />
+            <br/>
             <input type='password'
               name='password'
               placeholder='contraseña'
               required onChange={this.handleChange} />
-            <button onSubmit={this.handleSubmit}> PROCEDER </button>
+            <br/>
+            <button onSubmit={this.handleSubmit}> Iniciar Sesion </button>
           </form>
         </div>
       </div>
