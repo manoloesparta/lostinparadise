@@ -1,5 +1,4 @@
 from pytest import fixture, raises
-from unittest.mock import patch
 
 from lostinp.services.token import JwtService
 from lostinp.utils.exceptions import InvalidToken, ClaimNotFound
