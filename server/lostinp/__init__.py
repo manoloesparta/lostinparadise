@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_cors import CORS
 from gevent.pywsgi import WSGIServer
+
 from lostinp.utils.config import CONFIG
 
 
@@ -8,7 +9,7 @@ def app_factory(env):
     app = Flask(__name__)
     CORS(app)
 
-    from lostinp.routes.users import mod as users_module
+    from lostinp.routes.login import mod as users_module
 
     app.register_blueprint(users_module)
 
