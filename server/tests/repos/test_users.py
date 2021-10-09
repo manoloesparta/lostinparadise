@@ -5,18 +5,18 @@ from tests.helpers.mongo import insert_collection, empty_collection
 from tests.repos.mocks.users import REGISTERED_USER, USERS_DICT_MOCK, UNREGISTERED_USER
 
 
+@mongomock.patch(servers=(("mongo", 27017),))
 @fixture
 def mocked_repo():
-    with mongomock.patch(servers=(("mongo", 27017),)):
-        from lostinp.utils.dbhandler import MongoHandler
-        from lostinp.repos.users import UsersRepo
+    from lostinp.utils.dbhandler import MongoHandler
+    from lostinp.repos.users import UsersRepo
 
-        handler = MongoHandler()
-        repo = UsersRepo(handler)
+    handler = MongoHandler()
+    repo = UsersRepo(handler)
 
-        insert_collection(handler, USERS_DICT_MOCK)
-        yield repo
-        empty_collection(handler)
+    insert_collection(handler, USERS_DICT_MOCK)
+    yield repo
+    empty_collection(handler)
 
 
 def test_is_user_registered_with_unregistered_user(mocked_repo):

@@ -1,36 +1,44 @@
 from lostinp.models.user import User
-from lostinp.controllers import AUTH_SERVICE, TOKEN_SERVICE, USER_REPO
+from lostinp.utils.exceptions import BadRequest, Unauthorized
 
 
-def login_controller(request: dict):
-    username = request.get("username")
-    password = request.get("password")
+class LoginController:
+    def __init__(self, auth_service, token_service, user_repo):
+        self.auth_service = auth_service
+        self.token_service = token_service
+        self.user_repo = user_repo
 
-    user = User(**request, strict=False)
-    user.validate()
+    def do_it(self, request):
+        """Main method to perform the whole login"""
+        user = self._check(request)
 
-    verfied = AUTH_SERVICE.verify(username, password)
+        verfied = self.auth_service.verify(user.username, user.password)
+        if not verfied:
+            raise Unauthorized("No match for username and password")
 
-    if verfied:
-        registered = USER_REPO.is_user_registered(user)
+        self._register_or_increment_count(user)
+        token = self.token_service.create_user_token(user.username)
+        return token
+
+    def _register_or_increment_count(self, user):
+        """
+        Check if this is the first login attempt to
+        register into the database or increment the
+        visit count
+        """
+        registered = self.user_repo.is_user_registered(user)
         if registered:
-            USER_REPO.increment_visit_counter(user)
+            self.user_repo.increment_visit_counter(user)
         else:
-            USER_REPO.register_user(user)
+            self.user_repo.register_user(user)
 
-        token = TOKEN_SERVICE.create_user_token(username)
-        response = {
-            "statusCode": 201,
-            "message": {
-                "X-Jwt-Key": token,
-            },
-        }
-        return response
-
-    response = {
-        "statusCode": 400,
-        "message": {
-            "error": "No match for username or password",
-        },
-    }
-    return response
+    def _check(self, request):
+        """Verify all needed data is in the request"""
+        try:
+            username = request.get("username")
+            password = request.get("password")
+            user = User(username, password)
+            user.validate()
+        except:
+            raise BadRequest("Missing username or password in request")
+        return user
