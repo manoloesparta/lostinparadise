@@ -1,0 +1,14 @@
+.input-group{
+    width: 40% !important;
+    margin: 0 auto;
+    padding-bottom: 5px;
+}
+
+#login-form{
+    padding-top: 5vh;
+}
+
+.btn-warning{
+    background-color: #f7d117;
+    border-color: #f7d117;
+}
