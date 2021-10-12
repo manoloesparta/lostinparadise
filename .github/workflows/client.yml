@@ -42,7 +42,3 @@ jobs:
       - name: Run linter
         run: |
           npm run lint
-      
-      - name: Run tests and print report
-        run: |
-          npm run test --watchAll=false -- --coverage
