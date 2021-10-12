@@ -11,6 +11,7 @@
         "google"
     ],
     "parserOptions": {
+        "parser": "@babel/eslint-parser",
         "ecmaFeatures": {
             "jsx": true
         },
@@ -28,6 +29,7 @@
     },
     "rules": {
         "require-jsdoc": "off",
-        "linebreak-style": 0
+        "linebreak-style": 0,
+        "no-valid-this": "off"
     }
 }
