@@ -1,6 +1,6 @@
 import React from 'react';
 // import {ReactComponent as Logo} from '../logo192.png';
-import logo from '../cetys_logo.jpg';
+import logo from '../cetys-logo.jpg';
 import './login.css';
 class Login extends React.Component {
   constructor(props) {
@@ -16,35 +16,46 @@ class Login extends React.Component {
   handleChange(e) {
     const name = e.target.name;
     const value = e.target.value;
-    this.setState({[name]: value});
-    console.log(this.state);
+    this.setState({[name]: value}, () => {
+      console.log(this.state);
+    });
   }
 
   handleSubmit(e) {
     e.preventDefault();
     console.log(this.state);
+    console.log('hello');
   }
   render() {
     return (
       <div id="login-form">
         <div>
-          <img src={logo} id="logo"></img>
+          <img className="mt-3" src={logo} id="logo"></img>
         </div>
-        <div>
-          <form onSubmit={this.handleSubmit}>
-            <input type='matricula'
-              name='matricula'
-              placeholder='matricula'
+        <form onSubmit={this.handleSubmit}>
+          <div className="input-group input-group-lg">
+            <span className="input-group-text" id="basic-addon1">T0</span>
+            <input type="text"
+              className="form-control"
+              name="matricula"
+              placeholder="Matrícula"
+              aria-describedby="basic-addon1"
               required onChange={this.handleChange} />
-            <br/>
-            <input type='password'
-              name='password'
-              placeholder='contraseña'
-              required onChange={this.handleChange} />
-            <br/>
-            <button onSubmit={this.handleSubmit}> Iniciar Sesion </button>
-          </form>
-        </div>
+          </div>
+          <div className="input-group input-group-lg">
+            <input type="password"
+              className="form-control"
+              name="password"
+              placeholder="Contraseña"
+              required onChange={this.handleChange}/>
+          </div>
+          <div className="buttonContainer mt-3">
+            <button type="submit"
+              className="btn btn-warning btn-lg"
+              onSubmit={this.handleSubmit}>
+            Iniciar sesión</button>
+          </div>
+        </form>
       </div>
     );
   }
