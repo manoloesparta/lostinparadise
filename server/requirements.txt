@@ -7,7 +7,7 @@ pymongo==3.12.0
 # Testing
 pytest==6.2.5
 behave==1.2.6
-coveralls==3.2.0
+mongomock==3.23.0
 
 # Dev tools
 black==21.9b0
