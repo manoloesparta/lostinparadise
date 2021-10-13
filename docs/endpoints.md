@@ -4,7 +4,7 @@ These are the API endpoints the client will be communicating to.
 
 ## Users
 
-* POST /users/login
+* POST /login
 
     Request
 
@@ -41,9 +41,20 @@ These are the API endpoints the client will be communicating to.
     }
     ```
 
+    Response
+
+    > Token invalidated
+
+    ```json
+    {
+        "status": 200,
+        "message": "logout succesfully"
+    }
+    ```
+
 ## Search
 
-* POST /lost/search
+* POST /search
 
     Request
 
