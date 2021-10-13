@@ -1,11 +1,17 @@
-import json
-from sys import prefix
 import mongomock
-from pytest import fixture
+from unittest.mock import patch
+from pytest import fixture, raises
+
+import json
 from flask import Flask
 
-from tests.routes.mocks.login import VALID_REQUEST, HEADERS
 from tests.helpers.jwt import get_claim_from_jwt
+from tests.routes.mocks.login import (
+    VALID_REQUEST,
+    HEADERS,
+    INVALID_USER_REQUEST,
+    INCOMPLETE_REQUEST,
+)
 
 app = Flask(__name__)
 
@@ -32,12 +38,22 @@ def test_create_token_succesfully(mocked_login_route):
 
 
 def test_handler_bad_request(mocked_login_route):
-    pass
+    payload = json.dumps(INCOMPLETE_REQUEST)
+    response = mocked_login_route.post("/login", data=payload, headers=HEADERS)
+    parsed = json.loads(response.data)
+    assert parsed.get("statusCode") == 400
 
 
 def test_handler_unauthorized(mocked_login_route):
-    pass
+    payload = json.dumps(INVALID_USER_REQUEST)
+    response = mocked_login_route.post("/login", data=payload, headers=HEADERS)
+    parsed = json.loads(response.data)
+    assert parsed.get("statusCode") == 401
 
 
-def test_handler_internal_server_error(mocked_login_route):
-    pass
+@patch("lostinp.routes.login.LoginController.do_it", side_effect=Exception("Test"))
+def test_handler_internal_server_error(do_it_mock, mocked_login_route):
+    payload = json.dumps(VALID_REQUEST)
+    response = mocked_login_route.post("/login", data=payload, headers=HEADERS)
+    parsed = json.loads(response.data)
+    assert parsed.get("statusCode") == 500

@@ -41,7 +41,7 @@ class ControllerException(Exception):
 
 
 class BadRequest(ControllerException):
-    status_code = 401
+    status_code = 400
 
 
 class Unauthorized(ControllerException):
