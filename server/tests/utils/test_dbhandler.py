@@ -14,17 +14,17 @@ from tests.utils.mocks.dbhandler import (
 )
 
 
+@mongomock.patch(servers=(("mongo", 27017),))
 @fixture
 def mocked_mongo():
-    with mongomock.patch(servers=(("mongo", 27017),)):
-        from lostinp.utils.dbhandler import MongoHandler
+    from lostinp.utils.dbhandler import MongoHandler
 
-        handler = MongoHandler()
-        handler.set_collection("random_collection")
+    handler = MongoHandler()
+    handler.set_collection("random_collection")
 
-        insert_collection(handler, DATA_MOCK)
-        yield handler
-        empty_collection(handler)
+    insert_collection(handler, DATA_MOCK)
+    yield handler
+    empty_collection(handler)
 
 
 def test_get_existing_doc(mocked_mongo):

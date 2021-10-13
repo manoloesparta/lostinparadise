@@ -1,9 +1,17 @@
+# Mongo Handler
 class DocumentNotFound(Exception):
     pass
 
 
 class DuplicateDocumentId(Exception):
     pass
+
+
+class CollectionNotSpecified(Exception):
+    pass
+
+
+# Configuration
 
 
 class InvalidEnvironment(Exception):
@@ -14,8 +22,7 @@ class EnvironmentValueNotFound(Exception):
     pass
 
 
-class CollectionNotSpecified(Exception):
-    pass
+# JWT
 
 
 class InvalidToken(Exception):
@@ -24,3 +31,18 @@ class InvalidToken(Exception):
 
 class ClaimNotFound(Exception):
     pass
+
+
+# Controllers HTTP
+
+
+class ControllerException(Exception):
+    status_code = 100
+
+
+class BadRequest(ControllerException):
+    status_code = 400
+
+
+class Unauthorized(ControllerException):
+    status_code = 401

@@ -10,11 +10,11 @@ setup:
 dev:
 	sudo rm -rf data
 	docker-compose down
-	docker-compose --env-file config/development up --build
+	docker-compose up --build
 
 .PHONY: tests 
 tests:
-	$(PYTHON) -m coverage run -m pytest tests
+	$(PYTHON) -m coverage run -m pytest tests --disable-pytest-warnings
 	$(PYTHON) -m coverage report -m
 
 .PHONY: format 

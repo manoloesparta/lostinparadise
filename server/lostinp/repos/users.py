@@ -14,9 +14,9 @@ class UsersRepo:
         try:
             query = {"username": user.username}
             self.db_handler.get_document(query)
-            return False
-        except DocumentNotFound:
             return True
+        except DocumentNotFound:
+            return False
 
     def register_user(self, user: User):
         self.db_handler.insert_document(user.to_native())
