@@ -5,24 +5,21 @@ PIP = venv/bin/pip
 setup:
 	virtualenv -p $(env) venv
 	$(PIP) install -r requirements.txt
-	$(PIP) install -e .
 
-.PHONY:
-start:
-	echo "start api"
+.PHONY: dev
+dev:
+	sudo rm -rf data
+	docker-compose down
+	docker-compose up --build
 
-.PHONY: unti 
-unit:
-	$(PYTHON) -m coverage run -m pytest tests/unit
+.PHONY: tests 
+tests:
+	$(PYTHON) -m coverage run -m pytest tests --disable-pytest-warnings
 	$(PYTHON) -m coverage report -m
-
-.PHONY: int
-int:
-	echo "running integration tests"
 
 .PHONY: format 
 format:
-	$(PYTHON) -m black .
+	$(PYTHON) -m black . --exclude "(data|venv)"
 
 .PHONY: clean 
 clean:
