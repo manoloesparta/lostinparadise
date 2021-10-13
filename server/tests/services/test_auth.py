@@ -10,7 +10,6 @@ def service():
 
 
 def test_valid_credentials(service):
-    print(VALID_CREDENTIALS)
     res = service.verify(**VALID_CREDENTIALS)
     assert res
 
