@@ -21,12 +21,12 @@ def mocked_repo():
 
 def test_is_user_registered_with_unregistered_user(mocked_repo):
     response = mocked_repo.is_user_registered(UNREGISTERED_USER)
-    assert response
+    assert not response
 
 
 def test_is_user_registered_with_registered_user(mocked_repo):
     response = mocked_repo.is_user_registered(REGISTERED_USER)
-    assert not response
+    assert response
 
 
 def test_register_user_with_non_existing_user(mocked_repo):

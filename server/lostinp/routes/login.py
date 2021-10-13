@@ -3,7 +3,7 @@ import traceback
 from flask import Blueprint, jsonify, request
 
 from lostinp.controllers.login import LoginController
-from lostinp.services.token import TokenService
+from lostinp.services.token import JwtService
 from lostinp.services.authentication import MockedAuthService
 from lostinp.repos.users import UsersRepo
 from lostinp.utils.dbhandler import MongoHandler
@@ -16,7 +16,7 @@ mod = Blueprint("login", __name__)
 @mod.route("/login", methods=["POST"])
 def login_route():
 
-    token = TokenService()
+    token = JwtService()
     auth = MockedAuthService()
     mongo = MongoHandler()
     users = UsersRepo(mongo)
@@ -25,7 +25,7 @@ def login_route():
     response = {}
 
     try:
-        data = lower_dict_keys(request.json)
+        data = lower_dict_keys(request.get_json())
         token = controller.do_it(data)
         response = {
             "statusCode": 201,

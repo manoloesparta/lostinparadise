@@ -14,7 +14,7 @@ dev:
 
 .PHONY: tests 
 tests:
-	$(PYTHON) -m coverage run -m pytest tests
+	$(PYTHON) -m coverage run -m pytest tests --disable-pytest-warnings
 	$(PYTHON) -m coverage report -m
 
 .PHONY: format 
