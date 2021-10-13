@@ -25,7 +25,7 @@ These are the API endpoints the client will be communicating to.
     {
         "statusCode": 200,
         "message": {
-            "X-Jwt-Token": "blah.blah.blah"
+            "X-Jwt-Key": "blah.blah.blah"
         }
     }
     ```
@@ -35,18 +35,8 @@ These are the API endpoints the client will be communicating to.
     ```json
     {
         "statusCode": 400,
-        "message": "Incorrect username or password"
-    }
-    ```
-
-    * POST /logout
-
-    Request
-
-    ```json
-    {
-        "header": {
-            "X-Jwt-Token": "blah.blah.blah"
+        "message": {
+            "error": "No match for username or password"
         }
     }
     ```
@@ -71,7 +61,7 @@ These are the API endpoints the client will be communicating to.
     ```json
     {
         "headers": {
-            "X-Jwt-Token": "blah.blah.blah"
+            "X-Jwt-Key": "blah.blah.blah"
         },
         "body": {
             "start": "0",

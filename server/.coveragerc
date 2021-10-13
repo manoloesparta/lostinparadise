@@ -4,8 +4,8 @@ omit =
 	**/venv/**
 
 	# Project specific
-	**/__init__.py
 	tests/**
+	lostinp/utils/interfaces.py
 
 [report]
 exclude_lines = 
@@ -13,3 +13,4 @@ exclude_lines =
 	def __str__
 	def __repr__
 	def __init__
+skip_empty = true

@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+
+  server:
+    build: .
+    image: lostinp_server
+    container_name: server
+    depends_on:
+      - mongo
+    ports:
+      - 5000:5000
+    volumes:
+      - .:/usr/src
+    networks:
+      - lostinp_network
+    environment:
+      ENV: dev
+      FLASK_ENV: development
+  
+  mongo:
+    image: mongo
+    container_name: mongo 
+    ports:
+      - 27017:27017
+    volumes:
+      - ./data/:/data/db
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+    networks:
+      - lostinp_network
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: toor
+      MONGO_INITDB_DATABASE: lost_in_paradise
+
+networks:
+
+  lostinp_network:
+    name: lostinp_network
+    driver: bridge
+
+volumes:
+
+  lostinp_volume:
