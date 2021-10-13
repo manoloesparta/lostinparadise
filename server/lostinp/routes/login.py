@@ -27,11 +27,17 @@ def login_route():
     try:
         data = lower_dict_keys(request.json)
         token = controller.do_it(data)
-        response = {"statusCode": 201, "message": {"X-Jwt-Key": token}}
+        response = {
+            "statusCode": 201,
+            "message": {"X-Jwt-Key": token},
+        }
     except ControllerException as e:
         logging.error(str(e))
         traceback.print_exc()
-        response = {"statusCode": e.status_code, "message": {"error": str(e)}}
+        response = {
+            "statusCode": e.status_code,
+            "message": {"error": str(e)},
+        }
     except Exception as e:
         logging.error(str(e))
         traceback.print_exc()

@@ -11,14 +11,16 @@ class LoginController:
     def do_it(self, request):
         """Main method to perform the whole login"""
         user = self._check(request)
-
-        verfied = self.auth_service.verify(user.username, user.password)
-        if not verfied:
-            raise Unauthorized("No match for username and password")
-
+        self._verify_user_exists(user)
         self._register_or_increment_count(user)
         token = self.token_service.create_user_token(user.username)
         return token
+
+    def _verify_user_exists(self, user):
+        """Check if the user is registered in the authentication service"""
+        verfied = self.auth_service.verify(user.username, user.password)
+        if not verfied:
+            raise Unauthorized("No match for username and password")
 
     def _register_or_increment_count(self, user):
         """
