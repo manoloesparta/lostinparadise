@@ -2,11 +2,14 @@ import React from 'react';
 // import {ReactComponent as Logo} from '../logo192.png';
 import logo from '../assets/cetys-logo.jpg';
 import './login.css';
+import axios from 'axios';
+let JWT = '';
+
 class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      matricula: '',
+      username: '',
       password: '',
     };
     this.handleChange = this.handleChange.bind(this);
@@ -14,8 +17,13 @@ class Login extends React.Component {
   }
 
   handleChange(e) {
+    let value ='';
+    if (e.target.name == 'username') {
+      value = 't' + e.target.value;
+    } else {
+      value = e.target.value;
+    }
     const name = e.target.name;
-    const value = e.target.value;
     this.setState({[name]: value}, () => {
       console.log(this.state);
     });
@@ -23,8 +31,17 @@ class Login extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    console.log(this.state);
-    console.log('hello');
+    axios.post('http://localhost:5000/login', this.state)
+        .then(function(response) {
+          console.log('response : ');
+          console.log(response);
+          JWT = response.data.message['X-Jwt-Key'];
+          localStorage.setItem('user_token', JWT);
+          console.log(JWT);
+        }).catch(function(error) {
+          console.log('error : ');
+          console.log(error);
+        });
   }
   render() {
     return (
@@ -37,7 +54,7 @@ class Login extends React.Component {
             <span className="input-group-text" id="basic-addon1">T0</span>
             <input type="text"
               className="form-control"
-              name="matricula"
+              name="username"
               placeholder="Matrícula"
               aria-describedby="basic-addon1"
               required onChange={this.handleChange} />
