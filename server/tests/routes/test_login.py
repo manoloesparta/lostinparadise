@@ -1,6 +1,6 @@
 import mongomock
 from unittest.mock import patch
-from pytest import fixture 
+from pytest import fixture
 
 import json
 from flask import Flask
