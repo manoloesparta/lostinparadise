@@ -1,5 +1,5 @@
 from lostinp.models.user import User
-from lostinp.utils.dbhandler import DbHandler
+from lostinp.utils.db_handler import DbHandler
 from lostinp.utils.exceptions import DocumentNotFound
 
 
