@@ -8,7 +8,7 @@ from tests.repos.mocks.users import REGISTERED_USER, USERS_DICT_MOCK, UNREGISTER
 @mongomock.patch(servers=(("mongo", 27017),))
 @fixture
 def mocked_repo():
-    from lostinp.utils.dbhandler import MongoHandler
+    from lostinp.utils.db_handler import MongoHandler
     from lostinp.repos.users import UsersRepo
 
     handler = MongoHandler()
