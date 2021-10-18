@@ -41,14 +41,33 @@ These are the API endpoints the client will be communicating to.
     }
     ```
 
-    Response
+## Auth
 
-    > Token invalidated
+* POST /validate
+
+    Request
 
     ```json
     {
-        "status": 200,
-        "message": "logout succesfully"
+        "headers": {
+            "X-Jwt-Key": "blah.blah.blah",
+        }
+    }
+    ```
+
+    Response
+
+    > Valid
+    ```json
+    {
+        "statusCode": 200
+    }
+    ```
+
+    > Invalid
+    ```json
+    {
+        "statusCode": 401
     }
     ```
 
