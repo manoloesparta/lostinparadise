@@ -1,6 +1,6 @@
 import logging
 import traceback
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, request
 
 from lostinp.controllers.login import LoginController
 from lostinp.utils.jwt_helper import JwtHelper

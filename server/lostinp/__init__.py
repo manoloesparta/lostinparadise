@@ -9,9 +9,11 @@ def app_factory(env):
     app = Flask(__name__)
     CORS(app)
 
-    from lostinp.routes.login import mod as users_module
+    from lostinp.routes.login import mod as login_module
+    from lostinp.routes.validate import mod as validate_module
 
-    app.register_blueprint(users_module)
+    app.register_blueprint(login_module)
+    app.register_blueprint(validate_module)
 
     def app_runner():
         port = CONFIG.get_value("SERVER_PORT")
