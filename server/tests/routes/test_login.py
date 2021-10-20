@@ -30,9 +30,9 @@ def test_create_token_succesfully(mocked_login_route):
     payload = json.dumps(VALID_REQUEST)
     response = mocked_login_route.post("/login", data=payload, headers=HEADERS)
     parsed = json.loads(response.data)
-    assert parsed.get("statusCode") == 201
+    assert parsed.get("status") == 201
 
-    token = parsed.get("message", {}).get("X-Jwt-Key")
+    token = parsed.get("data", {}).get("X-Jwt-Key")
     username = get_claim_from_jwt(token, "username")
     assert username == VALID_REQUEST["username"]
 
@@ -41,14 +41,14 @@ def test_handler_bad_request(mocked_login_route):
     payload = json.dumps(INCOMPLETE_REQUEST)
     response = mocked_login_route.post("/login", data=payload, headers=HEADERS)
     parsed = json.loads(response.data)
-    assert parsed.get("statusCode") == 400
+    assert parsed.get("status") == 400
 
 
 def test_handler_unauthorized(mocked_login_route):
     payload = json.dumps(INVALID_USER_REQUEST)
     response = mocked_login_route.post("/login", data=payload, headers=HEADERS)
     parsed = json.loads(response.data)
-    assert parsed.get("statusCode") == 401
+    assert parsed.get("status") == 401
 
 
 @patch("lostinp.routes.login.LoginController.do_it", side_effect=Exception("Test"))
@@ -56,4 +56,4 @@ def test_handler_internal_server_error(do_it_mock, mocked_login_route):
     payload = json.dumps(VALID_REQUEST)
     response = mocked_login_route.post("/login", data=payload, headers=HEADERS)
     parsed = json.loads(response.data)
-    assert parsed.get("statusCode") == 500
+    assert parsed.get("status") == 500

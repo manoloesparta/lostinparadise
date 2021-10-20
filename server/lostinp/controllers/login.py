@@ -5,7 +5,7 @@ from lostinp.utils.exceptions import BadRequest, Unauthorized
 class LoginController:
     def __init__(self, auth_service, jwt_helper, user_repo):
         self.auth_service = auth_service
-        self.jwt_helper = jwt_helper 
+        self.jwt_helper = jwt_helper
         self.user_repo = user_repo
 
     def do_it(self, request):

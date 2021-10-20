@@ -28,22 +28,22 @@ def login_route():
         data = lower_dict_keys(request.get_json())
         token = controller.do_it(data)
         response = {
-            "statusCode": 201,
-            "message": {"X-Jwt-Key": token},
+            "status": 201,
+            "data": {"x-jwt-key": token},
         }
     except ControllerException as e:
         logging.error(str(e))
         traceback.print_exc()
         response = {
-            "statusCode": e.status_code,
-            "message": {"error": str(e)},
+            "status": e.status_code,
+            "error": str(e),
         }
     except Exception as e:
         logging.error(str(e))
         traceback.print_exc()
         response = {
-            "statusCode": 500,
-            "message": {"error": "Internal Server error"},
+            "status": 500,
+            "error": "Internal Server error",
         }
 
-    return jsonify(response)
+    return response

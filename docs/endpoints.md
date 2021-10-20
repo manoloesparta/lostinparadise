@@ -23,8 +23,8 @@ These are the API endpoints the client will be communicating to.
 
     ```json
     {
-        "statusCode": 200,
-        "message": {
+        "status": 200,
+        "data": {
             "X-Jwt-Key": "blah.blah.blah"
         }
     }
@@ -34,10 +34,8 @@ These are the API endpoints the client will be communicating to.
 
     ```json
     {
-        "statusCode": 400,
-        "message": {
-            "error": "No match for username or password"
-        }
+        "status": 400,
+        "error": "No match for username or password"
     }
     ```
 
@@ -60,14 +58,15 @@ These are the API endpoints the client will be communicating to.
     > Valid
     ```json
     {
-        "statusCode": 200
+        "status": 200
     }
     ```
 
     > Invalid
     ```json
     {
-        "statusCode": 401
+        "status": 400,
+        "error": "username not valid"
     }
     ```
 
@@ -80,7 +79,7 @@ These are the API endpoints the client will be communicating to.
     ```json
     {
         "headers": {
-            "X-Jwt-Key": "blah.blah.blah"
+            "x-jwt-key": "blah.blah.blah"
         },
         "body": {
             "start": "0",
@@ -95,8 +94,8 @@ These are the API endpoints the client will be communicating to.
 
     ```json
     {
-        "statusCode": 200,
-        "message": {
+        "status": 200,
+        "data": {
             "count": "16",
             "items": [
                 {
