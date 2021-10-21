@@ -1,13 +1,15 @@
-from flask import Blueprint, request
+from sanic import Blueprint
+from sanic.response import json
 from lostinp.utils.decorators import user_must_be_registered
 
-mod = Blueprint("login", __name__)
+bp = Blueprint("validate")
 
 
-@mod.route("/validate", methods=["POST"])
-@user_must_be_registered(request.headers)
-def validate_route():
-    return {
+@bp.post("/validate")
+@user_must_be_registered
+def validate_route(request):
+    response = {
         "status": 200,
         "message": "user is registered",
-    } 
+    }
+    return json(response)

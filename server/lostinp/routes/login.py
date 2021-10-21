@@ -1,6 +1,7 @@
 import logging
 import traceback
-from flask import Blueprint, request
+from sanic import Blueprint
+from sanic.response import json
 
 from lostinp.controllers.login import LoginController
 from lostinp.utils.jwt_helper import JwtHelper
@@ -10,11 +11,11 @@ from lostinp.utils.db_handler import MongoHandler
 from lostinp.utils.exceptions import ControllerException
 from lostinp.utils.utils import lower_dict_keys
 
-mod = Blueprint("login", __name__)
+bp = Blueprint("login")
 
 
-@mod.route("/login", methods=["POST"])
-def login_route():
+@bp.route("/login", methods=["POST"])
+def login_route(request):
 
     token = JwtHelper()
     auth = MockedAuthService()
@@ -24,8 +25,11 @@ def login_route():
     controller = LoginController(auth, token, users)
     response = {}
 
+    body = request.json
+
     try:
-        data = lower_dict_keys(request.get_json())
+
+        data = lower_dict_keys(body)
         token = controller.do_it(data)
         response = {
             "status": 201,
@@ -46,4 +50,4 @@ def login_route():
             "error": "Internal Server error",
         }
 
-    return response
+    return json(response)

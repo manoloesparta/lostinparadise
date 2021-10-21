@@ -2,6 +2,7 @@ import mongomock
 from pytest import fixture, raises
 
 from lostinp.utils.exceptions import BadRequest, Unauthorized
+
 from tests.helpers.mongo import insert_collection, empty_collection
 from tests.controllers.mocks.login import (
     USERS_REGISTERED,

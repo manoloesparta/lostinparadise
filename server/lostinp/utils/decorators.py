@@ -1,6 +1,7 @@
 import logging
 import traceback
 from functools import wraps
+from sanic.response import json
 
 from lostinp.models.user import User
 from lostinp.repos.users import UsersRepo
@@ -14,26 +15,23 @@ repo = UsersRepo(handler)
 jwt_helper = JwtHelper()
 
 
-def user_must_be_registered(headers):
-    def decorator(func):
-        @wraps(func)
-        def inner(*args, **kwargs):
-            try:
-                token = headers.get("X-Jwt-Key")
-                validate_token(token)
-            except Exception as e:
-                logging.error(str(e))
-                traceback.print_exc()
-                response = {
-                    "status": 400,
-                    "error": "username not valid",
-                }
-                return response
-            return func(*args, **kwargs)
+def user_must_be_registered(func):
+    @wraps(func)
+    def inner(request):
+        try:
+            token = request.headers.get("X-Jwt-Key")
+            validate_token(token)
+        except Exception as e:
+            logging.error(str(e))
+            traceback.print_exc()
+            response = {
+                "status": 400,
+                "error": "username in jwt is not valid",
+            }
+            return json(response)
+        return func(request)
 
-        return inner
-
-    return decorator
+    return inner
 
 
 def validate_token(token):

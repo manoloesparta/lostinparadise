@@ -1,8 +1,7 @@
-from os import environ
-from lostinp import app_factory
-
-env = environ.get("ENV", "development")
-app = app_factory(env)
+from lostinp import create_app
+from lostinp.utils.config import CONFIG
 
 if __name__ == "__main__":
-    app()
+    app = create_app()
+    conf = CONFIG.get_value("SANIC_CONFIG")
+    app.run(**conf)
