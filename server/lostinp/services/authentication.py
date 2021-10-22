@@ -8,7 +8,7 @@ class MockedAuthService(AuthenticationService):
         return self.username_valid(username) and self.password_strong(password)
 
     def username_valid(self, username: str) -> bool:
-        regex = r"^t[0-9]{5}$"
+        regex = r"^t[0-9]{6}$"
         result = match(regex, username)
         return bool(result)
 

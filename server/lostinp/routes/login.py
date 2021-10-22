@@ -1,6 +1,7 @@
 import logging
 import traceback
-from flask import Blueprint, jsonify, request
+from sanic import Blueprint
+from sanic.response import json
 
 from lostinp.controllers.login import LoginController
 from lostinp.utils.jwt_helper import JwtHelper
@@ -10,11 +11,11 @@ from lostinp.utils.db_handler import MongoHandler
 from lostinp.utils.exceptions import ControllerException
 from lostinp.utils.utils import lower_dict_keys
 
-mod = Blueprint("login", __name__)
+bp = Blueprint("login")
 
 
-@mod.route("/login", methods=["POST"])
-def login_route():
+@bp.route("/login", methods=["POST"])
+def login_route(request):
 
     token = JwtHelper()
     auth = MockedAuthService()
@@ -22,28 +23,23 @@ def login_route():
     users = UsersRepo(mongo)
 
     controller = LoginController(auth, token, users)
-    response = {}
+    response = json({}, 200)
 
     try:
-        data = lower_dict_keys(request.get_json())
+        body = request.json
+        data = lower_dict_keys(body)
         token = controller.do_it(data)
-        response = {
-            "statusCode": 201,
-            "message": {"X-Jwt-Key": token},
-        }
+        out = {"data": {"x-jwt-key": token}}
+        response = json(out, 201)
     except ControllerException as e:
         logging.error(str(e))
         traceback.print_exc()
-        response = {
-            "statusCode": e.status_code,
-            "message": {"error": str(e)},
-        }
+        out = {"error": str(e)}
+        response = json(out, e.status_code)
     except Exception as e:
         logging.error(str(e))
         traceback.print_exc()
-        response = {
-            "statusCode": 500,
-            "message": {"error": "Internal Server error"},
-        }
+        out = {"error": "Internal Server error"}
+        response = json(out, 500)
 
-    return jsonify(response)
+    return response
