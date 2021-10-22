@@ -1,4 +1,5 @@
 from tests.helpers.jwt import create_token
+from tests.helpers.handlers import MockedRequest
 
 
 USERS_REGISTERED = [
@@ -9,12 +10,12 @@ USERS_REGISTERED = [
 
 VALID_TOKEN = create_token("t030046")
 
-VALID_HEADERS = {"X-Jwt-Key": VALID_TOKEN}
+VALID_HEADERS = MockedRequest(headers={"X-Jwt-Key": VALID_TOKEN})
 
 INVALID_TOKEN = "blah.blah.blah"
 
-INVALID_TOKEN_HEADERS = {"X-Jwt-Key": INVALID_TOKEN}
+INVALID_TOKEN_HEADERS = MockedRequest(headers={"X-Jwt-Key": INVALID_TOKEN})
 
 NOT_REGISTERED_TOKEN = create_token("t066666")
 
-NOT_REGISTERED_HEADERS = {"X-Jwt-Key": NOT_REGISTERED_TOKEN}
+NOT_REGISTERED_HEADERS = MockedRequest(headers={"X-Jwt-Key": NOT_REGISTERED_TOKEN})

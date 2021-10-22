@@ -5,7 +5,6 @@ from tests.utils.mocks.decorators import (
     USERS_REGISTERED,
     VALID_HEADERS,
     NOT_REGISTERED_HEADERS,
-    INVALID_TOKEN_HEADERS,
 )
 
 
@@ -25,18 +24,27 @@ def decorator_mocked():
 
 
 def test_valid_request(decorator_mocked):
-    @decorator_mocked(VALID_HEADERS)
-    def inner():
+    @decorator_mocked
+    def decorated(request):
         return True
+
+    result = decorated(VALID_HEADERS)
+    assert result == True
 
 
 def test_non_registered_user(decorator_mocked):
-    @decorator_mocked(NOT_REGISTERED_HEADERS)
-    def decorated():
-        return True
+    @decorator_mocked
+    def decorated(request):
+        pass
+
+    result = decorated(NOT_REGISTERED_HEADERS)
+    assert result.status == 400
 
 
 def test_invalid_token(decorator_mocked):
-    @decorator_mocked(INVALID_TOKEN_HEADERS)
-    def decorated():
+    @decorator_mocked
+    def decorated(request):
         return True
+
+    result = decorated(NOT_REGISTERED_HEADERS)
+    assert result.status == 400

@@ -23,31 +23,23 @@ def login_route(request):
     users = UsersRepo(mongo)
 
     controller = LoginController(auth, token, users)
-    response = {}
-
-    body = request.json
+    response = json({}, 200)
 
     try:
-
+        body = request.json
         data = lower_dict_keys(body)
         token = controller.do_it(data)
-        response = {
-            "status": 201,
-            "data": {"x-jwt-key": token},
-        }
+        out = {"data": {"x-jwt-key": token}}
+        response = json(out, 201)
     except ControllerException as e:
         logging.error(str(e))
         traceback.print_exc()
-        response = {
-            "status": e.status_code,
-            "error": str(e),
-        }
+        out = {"error": str(e)}
+        response = json(out, e.status_code)
     except Exception as e:
         logging.error(str(e))
         traceback.print_exc()
-        response = {
-            "status": 500,
-            "error": "Internal Server error",
-        }
+        out = {"error": "Internal Server error"}
+        response = json(out, 500)
 
-    return json(response)
+    return response
