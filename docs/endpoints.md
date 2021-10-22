@@ -12,7 +12,7 @@ These are the API endpoints the client will be communicating to.
     {
         "body": {
             "username": "t030046",
-            "password": "o"
+            "password": "ultrasecurepassword"
         }
     }
     ```
@@ -25,7 +25,7 @@ These are the API endpoints the client will be communicating to.
     {
         "status": 200,
         "data": {
-            "X-Jwt-Key": "blah.blah.blah"
+            "x-jwt-key": "blah.blah.blah"
         }
     }
     ```
@@ -39,6 +39,27 @@ These are the API endpoints the client will be communicating to.
     }
     ```
 
+## Status
+
+* GET /health
+
+    Request
+
+    ```json
+    {}
+    ```
+
+    Response
+
+    > Server is up
+
+    ```json
+    {
+        "status": 200,
+        "message": "hello there"
+    }
+    ```
+
 ## Auth
 
 * POST /validate
@@ -48,7 +69,7 @@ These are the API endpoints the client will be communicating to.
     ```json
     {
         "headers": {
-            "X-Jwt-Key": "blah.blah.blah",
+            "x-jwt-key": "blah.blah.blah",
         }
     }
     ```
@@ -58,7 +79,8 @@ These are the API endpoints the client will be communicating to.
     > Valid
     ```json
     {
-        "status": 200
+        "status": 200,
+        "message": "user is registered"
     }
     ```
 
