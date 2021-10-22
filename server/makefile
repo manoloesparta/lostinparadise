@@ -9,9 +9,18 @@ setup:
 
 .PHONY: dev
 dev:
-	sudo rm -rf data
 	docker-compose down
 	docker-compose up --build
+
+.PHONY: load
+load:
+	docker-compose up -d mongo 
+	$(PYTHON) scripts/load_data.py
+
+.PHONY: wipe
+wipe:
+	docker-compose down
+	sudo rm -rf data
 
 .PHONY: tests 
 tests:
