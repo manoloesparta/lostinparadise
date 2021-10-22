@@ -2,6 +2,7 @@ import mongomock
 from pytest import fixture, raises
 
 from lostinp.utils.exceptions import BadRequest, Unauthorized
+
 from tests.helpers.mongo import insert_collection, empty_collection
 from tests.controllers.mocks.login import (
     USERS_REGISTERED,
@@ -65,5 +66,5 @@ def test_check_valid_request(mocked_controller):
 
 def test_return_token_with_username_claim(mocked_controller):
     token = mocked_controller.do_it(VALID_REQUEST)
-    username = mocked_controller.token_service.get_claim(token, "username")
+    username = mocked_controller.jwt_helper.get_claim(token, "username")
     assert username == VALID_REQUEST["username"]

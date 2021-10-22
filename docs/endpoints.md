@@ -12,7 +12,7 @@ These are the API endpoints the client will be communicating to.
     {
         "body": {
             "username": "t030046",
-            "password": "o"
+            "password": "ultrasecurepassword"
         }
     }
     ```
@@ -23,9 +23,9 @@ These are the API endpoints the client will be communicating to.
 
     ```json
     {
-        "statusCode": 200,
-        "message": {
-            "X-Jwt-Key": "blah.blah.blah"
+        "status": 200,
+        "data": {
+            "x-jwt-key": "blah.blah.blah"
         }
     }
     ```
@@ -34,21 +34,61 @@ These are the API endpoints the client will be communicating to.
 
     ```json
     {
-        "statusCode": 400,
-        "message": {
-            "error": "No match for username or password"
+        "status": 400,
+        "error": "No match for username or password"
+    }
+    ```
+
+## Status
+
+* GET /health
+
+    Request
+
+    ```json
+    {}
+    ```
+
+    Response
+
+    > Server is up
+
+    ```json
+    {
+        "status": 200,
+        "message": "hello there"
+    }
+    ```
+
+## Auth
+
+* POST /validate
+
+    Request
+
+    ```json
+    {
+        "headers": {
+            "x-jwt-key": "blah.blah.blah",
         }
     }
     ```
 
     Response
 
-    > Token invalidated
-
+    > Valid
     ```json
     {
         "status": 200,
-        "message": "logout succesfully"
+        "message": "user is registered"
+    }
+    ```
+
+    > Invalid
+    ```json
+    {
+        "status": 400,
+        "error": "username not valid"
     }
     ```
 
@@ -61,7 +101,7 @@ These are the API endpoints the client will be communicating to.
     ```json
     {
         "headers": {
-            "X-Jwt-Key": "blah.blah.blah"
+            "x-jwt-key": "blah.blah.blah"
         },
         "body": {
             "start": "0",
@@ -76,8 +116,8 @@ These are the API endpoints the client will be communicating to.
 
     ```json
     {
-        "statusCode": 200,
-        "message": {
+        "status": 200,
+        "data": {
             "count": "16",
             "items": [
                 {

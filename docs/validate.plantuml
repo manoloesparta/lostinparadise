@@ -1,9 +1,8 @@
-@startuml Lost Items Functionality
+@startuml Validate token
 
 actor User
-participant "Lost Items\nController" as Controller
+participant "Validate\nController" as Controller
 database "User\nRepository" as UserRepo
-database "Lost Items\n Repository" as LostRepo
 
 User -> Controller: Token
 Controller -> UserRepo: User registered?
@@ -11,9 +10,7 @@ Controller -> UserRepo: User registered?
 alt Username registered
 
     UserRepo -> Controller: Yes
-    Controller -> LostRepo: Get lost items
-    LostRepo -> Controller: Lost items
-    Controller -> User: Lost items
+    Controller -> User: Ok
 
 else Username not registered
 

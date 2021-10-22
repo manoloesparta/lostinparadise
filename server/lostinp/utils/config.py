@@ -28,6 +28,11 @@ class Configuration:
             "MONGO_CONN_STRING": "mongodb://root:toor@mongo:27017",
             "AUTH_SERVICE_BASE_URL": "http://localhost:5000/auth",
             "SECRET": "development-secret",
+            "SANIC_CONFIG": {
+                "host": "0.0.0.0",
+                "port": 5000,
+                "debug": True,
+            },
         }
 
 
