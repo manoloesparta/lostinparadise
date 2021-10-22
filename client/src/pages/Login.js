@@ -2,11 +2,14 @@ import React from 'react';
 // import {ReactComponent as Logo} from '../logo192.png';
 import logo from '../assets/cetys-logo.jpg';
 import './login.css';
+import axios from 'axios';
+let JWT = '';
+
 class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      matricula: '',
+      username: '',
       password: '',
     };
     this.handleChange = this.handleChange.bind(this);
@@ -14,32 +17,42 @@ class Login extends React.Component {
   }
 
   handleChange(e) {
-    const name = e.target.name;
     const value = e.target.value;
+    const name = e.target.name;
     this.setState({[name]: value}, () => {
-      console.log(this.state);
+      // console.log(this.state);
     });
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    console.log(this.state);
-    console.log('hello');
+    axios.post('http://localhost:5000/login', this.state)
+        .then((response) => {
+          JWT = response.data.message['X-Jwt-Key'];
+          if (JWT) {
+            localStorage.setItem('user_token', JWT);
+            console.log('JWT : ' + JWT);
+            console.log(response.data.message);
+          } else {
+            console.log(response.data.message);
+          }
+          console.log('Status Code ' + response.data.statusCode);
+        }).catch((err) => {
+
+        });
   }
   render() {
     return (
       <div id="login-form">
         <div>
-          <img className="mt-3" src={logo} id="logo"></img>
+          <img className="mt-3 img-fluid" src={logo} id="logo"></img>
         </div>
         <form onSubmit={this.handleSubmit}>
           <div className="input-group input-group-lg">
-            <span className="input-group-text" id="basic-addon1">T0</span>
             <input type="text"
               className="form-control"
-              name="matricula"
+              name="username"
               placeholder="Matrícula"
-              aria-describedby="basic-addon1"
               required onChange={this.handleChange} />
           </div>
           <div className="input-group input-group-lg">
