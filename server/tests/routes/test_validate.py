@@ -27,8 +27,10 @@ def mocked_app():
 
 
 def test_validated_user(mocked_app):
-    pass
+    _, response = mocked_app.post("/validate", headers=VALID_HEADERS)
+    assert response.status == 200
 
 
 def test_invalidated_user(mocked_app):
-    pass
+    _, response = mocked_app.post("/validate", headers=INVALID_HEADERS)
+    assert response.status == 400

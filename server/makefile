@@ -4,6 +4,7 @@ PIP = venv/bin/pip
 .PHONY: setup 
 setup:
 	virtualenv -p $(env) venv
+	$(PIP) install --upgrade pip
 	$(PIP) install -r requirements.txt
 
 .PHONY: dev
@@ -15,7 +16,7 @@ dev:
 .PHONY: tests 
 tests:
 	$(PYTHON) -m coverage run -m pytest tests --disable-pytest-warnings
-	$(PYTHON) -m coverage report -m
+	$(PYTHON) -m coverage report -i
 
 .PHONY: format 
 format:
