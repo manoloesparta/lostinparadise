@@ -27,16 +27,13 @@ for index, row in data.iterrows():
             "found": row["QuienEncontro"],
             "recieved": row["QuienRecibio"],
             "claimed": row["QuienReclamo"],
-            "delivered": row["QuienEntrego"]
+            "delivered": row["QuienEntrego"],
         },
-        "when": {
-            "recieved": row["FechaEntrada"],
-            "delivered": row["FechaSalida"]
-        },
+        "when": {"recieved": row["FechaEntrada"], "delivered": row["FechaSalida"]},
         "observations": {
             "recieved": row["ObservacionesEntrada"],
-            "delivered": row["ObservacionesSalida"]
-        }
+            "delivered": row["ObservacionesSalida"],
+        },
     }
     insert.append(one)
 
