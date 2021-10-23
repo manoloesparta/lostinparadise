@@ -27,6 +27,17 @@ def mocked_mongo():
     empty_collection(handler)
 
 
+@mongomock.patch(servers=(("mongo", 27017),))
+@fixture
+def empty_mongo():
+    from lostinp.utils.db_handler import MongoHandler
+
+    handler = MongoHandler()
+    handler.set_collection("random_collection")
+
+    yield handler
+
+
 def test_get_existing_doc(mocked_mongo):
     response = mocked_mongo.get_document(EXISTING_DATA_MOCK)
     assert response["username"] == EXISTING_DATA_MOCK["username"]
@@ -85,3 +96,13 @@ def test_delete_existing_doc(mocked_mongo):
 def test_delete_non_existing_doc(mocked_mongo):
     with raises(DocumentNotFound):
         mocked_mongo.delete_document(NON_EXISTING_QUERY_FILTER_MOCK)
+
+
+def test_get_all(mocked_mongo):
+    result = mocked_mongo.get_all()
+    assert len(result) == len(DATA_MOCK)
+
+
+def test_get_all_with_none(empty_mongo):
+    result = empty_mongo.get_all()
+    assert len(result) == 0

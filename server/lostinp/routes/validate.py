@@ -8,8 +8,5 @@ bp = Blueprint("validate")
 @bp.post("/validate")
 @user_must_be_registered
 def validate_route(request):
-    response = {
-        "status": 200,
-        "message": "user is registered",
-    }
-    return json(response)
+    response = {"message": "user is registered"}
+    return json(response, 200)

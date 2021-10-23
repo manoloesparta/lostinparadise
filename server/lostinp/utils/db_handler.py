@@ -30,6 +30,11 @@ class MongoHandler(DbHandler):
             raise DocumentNotFound("No document found with query filter: %s" % query)
         return result
 
+    def get_all(self):
+        self.check_collection()
+        result = self.collection.find({})
+        return list(result)
+
     def insert_document(self, insert):
         self.check_collection()
         try:
