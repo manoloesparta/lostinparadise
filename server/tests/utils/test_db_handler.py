@@ -106,3 +106,13 @@ def test_get_all(mocked_mongo):
 def test_get_all_with_none(empty_mongo):
     result = empty_mongo.get_all()
     assert len(result) == 0
+
+
+def test_get_count_empty(empty_mongo):
+    count = empty_mongo.count()
+    assert count == 0
+
+
+def test_get_count_with_data(mocked_mongo):
+    count = mocked_mongo.count()
+    assert count == 5

@@ -20,7 +20,7 @@ load:
 .PHONY: wipe
 wipe:
 	docker-compose down
-	sudo rm -rf data
+	sudo rm -rf database
 
 .PHONY: tests 
 tests:
