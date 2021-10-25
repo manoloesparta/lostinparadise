@@ -1,6 +1,15 @@
-VALID_REQUEST = {"query": "cargador"}
+from tests.helpers.handlers import MockedRequest
+from tests.helpers.jwt import create_token
 
-INVALID_REQUEST = {}
+
+REGISTERED_USER = {"username": "t030046"}
+
+VALID_REQUEST = {
+    "headers": {"x-jwt-key": create_token("t030046")},
+    "body": {"query": "cargador"},
+}
+
+INVALID_REQUEST = {"headers": {"x-jwt-key": create_token("t012345")}, "body": {}}
 
 LOST_ITEMS_MOCK = [
     {

@@ -13,7 +13,17 @@ class GetLostItemsController:
 
     def _get_lost_items(self, query):
         """Search the items with the query"""
-        return self.items_repo.get_lost_items_by_query(query)
+        items = self.items_repo.get_lost_items_by_query(query)
+        cleaned = []
+        for item in items:
+            one = {
+                "id": item.uuid,
+                "status": item.status,
+                "description": item.description,
+                "found": item.foundOn,
+            }
+            cleaned.append(one)
+        return cleaned
 
     def _check(self, request):
         """Check that the request contains the query"""
