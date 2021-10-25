@@ -2,7 +2,6 @@ import mongomock
 from pytest import fixture
 
 from tests.helpers.mongo import insert_collection, empty_collection
-
 from tests.repos.mocks.items import LOST_ITEMS_MOCK
 
 
