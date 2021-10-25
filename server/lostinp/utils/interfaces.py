@@ -11,6 +11,14 @@ class DbHandler:
         pass
 
     @abstractmethod
+    def get_all(self):
+        pass
+
+    @abstractmethod
+    def count(self):
+        pass
+
+    @abstractmethod
     def insert_document(self, insert):
         pass
 

@@ -21,4 +21,4 @@ build/
 *.egg-info/
 
 # Ignore
-data
+database
