@@ -20,7 +20,7 @@ load:
 .PHONY: wipe
 wipe:
 	docker-compose down
-	sudo rm -rf data
+	sudo rm -rf database
 
 .PHONY: tests 
 tests:
@@ -29,7 +29,7 @@ tests:
 
 .PHONY: format 
 format:
-	$(PYTHON) -m black . --exclude "(data|venv)"
+	$(PYTHON) -m black . --exclude "(database|venv)"
 
 .PHONY: clean 
 clean:

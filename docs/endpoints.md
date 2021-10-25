@@ -104,8 +104,7 @@ These are the API endpoints the client will be communicating to.
             "x-jwt-key": "blah.blah.blah"
         },
         "body": {
-            "start": "0",
-            "keywords": "laptop gris"
+            "query": "laptop gris"
         }
     }
     ```
@@ -118,25 +117,41 @@ These are the API endpoints the client will be communicating to.
     {
         "status": 200,
         "data": {
-            "count": "16",
             "items": [
                 {
-                    "icon": "laptop",
-                    "name": "HP Laptop",
-                    "description": "Color gris con sticker de flor",
-                    "date": "12/3/2020"
+                    "id": "uuid",
+                    "status": "Entregado",
+                    "category": "Electronico",
+                    "description": "Cargador Dell Punta chica Azul Salón 7307,",
+                    "found": "2020-01-24"
                 },
                 {
-                    "icon": "laptop",
-                    "name": "Lenovo Laptop",
-                    "description": "Color entre negro y gris con sticker de flor",
-                    "date": "5/11/2020"
+                    "id": "uuid",
+                    "status": "Entregado",
+                    "category": "Electronico",
+                    "description": "Audífonos BITS, Salón 2201, ",
+                    "date": "2019-09-05"
                 },
                 {
-                    "icon": "laptop",
-                    "name": "macbook pro 2012",
-                    "description": "macbook pro viejita",
-                    "date": "22/6/2020"
+                    "id": "uuid",
+                    "status": "Entregado",
+                    "category": "Electronico",
+                    "description": "Cargador HP 1303",
+                    "date": "2019-11-07"
+                },
+                {
+                    "id": "uuid",
+                    "status": "Entregado",
+                    "category": "Electronico",
+                    "description": "Cargador Genérico Punta Grande Salón 1306,",
+                    "date": "2019-09-23"
+                },
+                {
+                    "id": "uuid",
+                    "status": "Entregado",
+                    "category": "Electronico",
+                    "description": "Cargador LAPTOP GENERICO 1306",
+                    "date": "2019-11-07"
                 },
             ]
         }
