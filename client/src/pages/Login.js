@@ -28,15 +28,15 @@ class Login extends React.Component {
     e.preventDefault();
     axios.post('http://localhost:5000/login', this.state)
         .then((response) => {
-          JWT = response.data.message['X-Jwt-Key'];
+          JWT = response.data.data['x-jwt-key'];
           if (JWT) {
             localStorage.setItem('user_token', JWT);
             console.log('JWT : ' + JWT);
-            console.log(response.data.message);
+            console.log(response.data.data);
           } else {
-            console.log(response.data.message);
+            console.log(response.data.data);
           }
-          console.log('Status Code ' + response.data.statusCode);
+          console.log('Status Code ' + response.status);
         }).catch((err) => {
 
         });
