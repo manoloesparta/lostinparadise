@@ -54,6 +54,7 @@ def test_failed_get_lost_items(mocked_app):
     )
     assert response.status == 400
 
+
 @patch("lostinp.routes.items.GetLostItemsController.do_it", side_effect=Exception())
 def test_internal_server_error(controller, mocked_app):
     _, response = mocked_app.post(
