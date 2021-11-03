@@ -2,6 +2,7 @@ import mongomock
 from pytest import fixture, raises
 
 from lostinp.utils.exceptions import BadRequest, Unauthorized
+
 from tests.helpers.mongo import insert_collection, empty_collection
 from tests.controllers.mocks.login import (
     USERS_REGISTERED,
@@ -17,15 +18,15 @@ from tests.controllers.mocks.login import (
 @mongomock.patch(servers=(("mongo", 27017),))
 @fixture
 def mocked_controller():
-    from lostinp.utils.dbhandler import MongoHandler
+    from lostinp.utils.db_handler import MongoHandler
     from lostinp.repos.users import UsersRepo
     from lostinp.services.authentication import MockedAuthService
-    from lostinp.services.token import JwtService
+    from lostinp.utils.jwt_helper import JwtHelper
     from lostinp.controllers.login import LoginController
 
     handler = MongoHandler()
     repo = UsersRepo(handler)
-    token = JwtService()
+    token = JwtHelper()
     auth = MockedAuthService()
 
     controller = LoginController(auth, token, repo)
@@ -65,5 +66,5 @@ def test_check_valid_request(mocked_controller):
 
 def test_return_token_with_username_claim(mocked_controller):
     token = mocked_controller.do_it(VALID_REQUEST)
-    username = mocked_controller.token_service.get_username_claim(token)
+    username = mocked_controller.jwt_helper.get_claim(token, "username")
     assert username == VALID_REQUEST["username"]

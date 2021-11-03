@@ -3,34 +3,32 @@ import traceback
 from sanic import Blueprint
 from sanic.response import json
 
-from lostinp.controllers.login import LoginController
-from lostinp.utils.jwt_helper import JwtHelper
-from lostinp.services.authentication import MockedAuthService
-from lostinp.repos.users import UsersRepo
+from lostinp.utils.decorators import user_must_be_registered
+from lostinp.repos.items import LostItemsRepo
+from lostinp.controllers.items import GetLostItemsController
 from lostinp.utils.db_handler import MongoHandler
 from lostinp.utils.exceptions import ControllerException
 from lostinp.utils.utils import lower_dict_keys
 
-bp = Blueprint("login")
+bp = Blueprint("search")
 
 
-@bp.route("/login", methods=["POST"])
-def login_route(request):
+@bp.post("/search")
+@user_must_be_registered
+def search_items_route(request):
 
-    token = JwtHelper()
-    auth = MockedAuthService()
     mongo = MongoHandler()
-    users = UsersRepo(mongo)
+    items = LostItemsRepo(mongo)
 
-    controller = LoginController(auth, token, users)
+    controller = GetLostItemsController(items)
     response = json({}, 200)
 
     try:
         body = request.json
         data = lower_dict_keys(body)
-        token = controller.do_it(data)
-        out = {"data": {"x-jwt-key": token}}
-        response = json(out, 201)
+        items = controller.do_it(data)
+        out = {"data": {"items": items}}
+        response = json(out, 200, default=str)
     except ControllerException as e:
         logging.error(str(e))
         traceback.print_exc()

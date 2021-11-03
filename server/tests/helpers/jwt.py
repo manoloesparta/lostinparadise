@@ -1,6 +1,11 @@
-from lostinp.services.token import JwtService
+from lostinp.utils.jwt_helper import JwtHelper
+
+jwt = JwtHelper()
 
 
 def get_claim_from_jwt(token, key):
-    jwt = JwtService()
-    return jwt._get_claim(token, key)
+    return jwt.get_claim(token, key)
+
+
+def create_token(username):
+    return jwt.create_user_token(username)

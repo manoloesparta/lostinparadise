@@ -1,6 +1,6 @@
 from pytest import fixture, raises
 
-from lostinp.services.token import JwtService
+from lostinp.utils.jwt_helper import JwtHelper
 from lostinp.utils.exceptions import InvalidToken, ClaimNotFound
 from tests.services.mocks.token import (
     SECRET,
@@ -12,20 +12,20 @@ from tests.services.mocks.token import (
 
 @fixture
 def jwt_service():
-    yield JwtService(SECRET)
+    yield JwtHelper(SECRET)
 
 
 def test_create_user_token(jwt_service):
     token = jwt_service.create_user_token(USERNAME)
-    username = jwt_service.get_username_claim(token)
+    username = jwt_service.get_claim(token, "username")
     assert username == USERNAME
 
 
 def test_get_username_claim_expired(jwt_service):
     with raises(InvalidToken):
-        jwt_service.get_username_claim(EXPIRED_TOKEN)
+        jwt_service.get_claim(EXPIRED_TOKEN, "username")
 
 
 def test_get_username_wiht_no_claim(jwt_service):
     with raises(ClaimNotFound):
-        jwt_service.get_username_claim(TOKEN_WITHOUT_USERNAME)
+        jwt_service.get_claim(TOKEN_WITHOUT_USERNAME, "username")

@@ -3,7 +3,6 @@
 actor User
 participant "Login\nController" as Controller
 participant "Authentication\nService" as AuthService
-participant "Token\nService" as TokenService
 database "User\nRepository" as UserRepo
 
 User -> Controller: Credentials
@@ -26,8 +25,7 @@ alt Valid credentials
 
     end
 
-    Controller -> TokenService: Generate token with username claim
-    TokenService -> Controller: Token
+    Controller -> Controller: Generate token
     Controller -> User: Token
 
 else Invalid credentials
