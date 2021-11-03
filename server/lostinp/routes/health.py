@@ -6,8 +6,5 @@ bp = Blueprint("health")
 
 @bp.get("/health")
 def health_route(request):
-    response = {
-        "status": 200,
-        "message": "hello there",
-    }
-    return json(response)
+    response = {"message": "hello there"}
+    return json(response, 200)
