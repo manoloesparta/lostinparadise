@@ -24,14 +24,14 @@ class Configuration:
 
     def _build_env_dict(self):
         self.env_dict = {
-            "SERVER_PORT": 5000,
-            "MONGO_CONN_STRING": "mongodb://root:toor@mongo:27017",
-            "AUTH_SERVICE_BASE_URL": "http://localhost:5000/auth",
-            "SECRET": "development-secret",
+            "ENV": environ.get("ENV", "dev"),
+            "MONGO_STRING": environ.get("MONGO", "mongodb://root:toor@mongo:27017"),
+            "AUTH_BASE_URL": environ.get("CETYS_AUTH", "http://localhost:5000/auth"),
+            "SECRET": environ.get("SECRET", "development-secret"),
             "SANIC_CONFIG": {
-                "host": "0.0.0.0",
-                "port": 5000,
-                "debug": True,
+                "host": environ.get("HOST", "0.0.0.0"),
+                "port": environ.get("PORT", 5000),
+                "debug": environ.get("ENV", "dev") != "prod",
             },
         }
 

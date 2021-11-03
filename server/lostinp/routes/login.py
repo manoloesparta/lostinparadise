@@ -5,7 +5,7 @@ from sanic.response import json
 
 from lostinp.controllers.login import LoginController
 from lostinp.utils.jwt_helper import JwtHelper
-from lostinp.services.authentication import MockedAuthService
+from lostinp.services.authentication import CetysAuthentication
 from lostinp.repos.users import UsersRepo
 from lostinp.utils.db_handler import MongoHandler
 from lostinp.utils.exceptions import ControllerException
@@ -18,7 +18,7 @@ bp = Blueprint("login")
 def login_route(request):
 
     token = JwtHelper()
-    auth = MockedAuthService()
+    auth = CetysAuthentication()
     mongo = MongoHandler()
     users = UsersRepo(mongo)
 
