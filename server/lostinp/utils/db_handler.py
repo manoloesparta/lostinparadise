@@ -10,7 +10,7 @@ from lostinp.utils.exceptions import (
 
 class MongoHandler(DbHandler):
 
-    client = pymongo.MongoClient(CONFIG.get_value("MONGO_CONN_STRING"))
+    client = pymongo.MongoClient(CONFIG.get_value("MONGO_STRING"))
     database = client["lost_in_paradise"]
     collection = None
 
