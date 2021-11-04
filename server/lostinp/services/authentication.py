@@ -1,16 +1,19 @@
-from re import match
+import json
+import requests
 
+from lostinp.utils.config import CONFIG
 from lostinp.utils.interfaces import AuthenticationService
+
+
+class CetysAuthentication(AuthenticationService):
+    def verify(self, username: str, password: str) -> bool:
+        url = CONFIG.get_value("AUTH_BASE_URL")
+        body = {"Username": username, "Password": password}
+        response = requests.post(url, data=json.dumps(body))
+        return response.status_code == 200
 
 
 class MockedAuthService(AuthenticationService):
     def verify(self, username: str, password: str) -> bool:
-        return self.username_valid(username) and self.password_strong(password)
-
-    def username_valid(self, username: str) -> bool:
-        regex = r"^t[0-9]{6}$"
-        result = match(regex, username)
-        return bool(result)
-
-    def password_strong(self, password: str) -> bool:
-        return len(password) > 8
+        strong_password = len(username) == 7 and len(password) > 8
+        return strong_password
