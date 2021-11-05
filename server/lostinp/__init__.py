@@ -1,6 +1,8 @@
 from sanic import Sanic
 from sanic_cors import CORS
 
+from lostinp.utils.config import CONFIG
+
 
 def create_app():
     app = Sanic(__name__)
@@ -13,5 +15,10 @@ def create_app():
     app.blueprint(login_blueprint)
     app.blueprint(validate_blueprint)
     app.blueprint(search_items_blueprint)
+
+    if CONFIG.get_value("ENV") == "dev":
+        from lostinp.routes.auth import bp as auth_blueprint
+
+        app.blueprint(auth_blueprint)
 
     return app

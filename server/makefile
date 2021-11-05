@@ -9,7 +9,6 @@ setup:
 
 .PHONY: dev
 dev:
-	docker-compose down
 	docker-compose up --build
 
 .PHONY: load
