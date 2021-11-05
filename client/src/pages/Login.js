@@ -1,77 +1,78 @@
-import React from 'react';
-// import {ReactComponent as Logo} from '../logo192.png';
-import logo from '../assets/cetys-logo.jpg';
-import './login.css';
+// Libraries
 import axios from 'axios';
-let JWT = '';
+import React, {useState} from 'react';
 
-class Login extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: '',
-      password: '',
+// Styles
+import './login.css';
+import 'bootstrap/dist/css/bootstrap.css';
+import logo from '../assets/cetys-logo.jpg';
+
+const API_URL = 'http://localhost:5000';
+
+function Login() {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  const onSubmit = async (event) => {
+    event.preventDefault();
+
+    const req = {
+      'username': username,
+      'password': password,
     };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
 
-  handleChange(e) {
-    const value = e.target.value;
-    const name = e.target.name;
-    this.setState({[name]: value}, () => {
-      // console.log(this.state);
-    });
-  }
+    try {
+      const res = await axios.post(API_URL + '/login', req);
 
-  handleSubmit(e) {
-    e.preventDefault();
-    axios.post('http://localhost:5000/login', this.state)
-        .then((response) => {
-          JWT = response.data.data['x-jwt-key'];
-          if (JWT) {
-            localStorage.setItem('user_token', JWT);
-            console.log('JWT : ' + JWT);
-            console.log(response.data.data);
-          } else {
-            console.log(response.data.data);
-          }
-          console.log('Status Code ' + response.status);
-        }).catch((err) => {
+      if (res.status == 201) {
+        const token = res.data.data['x-jwt-key'];
+        localStorage.setItem('user_token', token);
+        console.log(`Token: ${token}`);
+      } else {
+        console.log('Incorrect username or password');
+      }
+    } catch {
+      console.log('Is server down?');
+    }
+  };
 
-        });
-  }
-  render() {
-    return (
-      <div id="login-form">
-        <div>
-          <img className="mt-3 img-fluid" src={logo} id="logo"></img>
-        </div>
-        <form onSubmit={this.handleSubmit}>
-          <div className="input-group input-group-lg">
-            <input type="text"
-              className="form-control"
-              name="username"
-              placeholder="Matrícula"
-              required onChange={this.handleChange} />
-          </div>
-          <div className="input-group input-group-lg">
-            <input type="password"
-              className="form-control"
-              name="password"
-              placeholder="Contraseña"
-              required onChange={this.handleChange}/>
-          </div>
-          <div className="buttonContainer mt-3">
-            <button type="submit"
-              className="btn btn-warning btn-lg"
-              onSubmit={this.handleSubmit}>
-            Iniciar sesión</button>
-          </div>
-        </form>
+  const handlePassword = (event) => {
+    setPassword(event.target.value);
+  };
+
+  const handleUsername = (event) => {
+    setUsername(event.target.value);
+  };
+
+  return (
+    <div id="login-form">
+      <div>
+        <img className="mt-3 img-fluid" src={logo} id="logo"></img>
       </div>
-    );
-  }
+      <form>
+        <div className="input-group input-group-lg">
+          <input type="text"
+            className="form-control"
+            name="username"
+            placeholder="Matrícula"
+            required onChange={handleUsername}/>
+        </div>
+        <div className="input-group input-group-lg">
+          <input type="password"
+            className="form-control"
+            name="password"
+            placeholder="Contraseña"
+            required onChange={handlePassword}/>
+        </div>
+        <div className="buttonContainer mt-3">
+          <button type="submit"
+            className="btn btn-warning btn-lg"
+            onClick={onSubmit}>
+          Iniciar sesión</button>
+        </div>
+      </form>
+    </div>
+  );
 }
 
 
