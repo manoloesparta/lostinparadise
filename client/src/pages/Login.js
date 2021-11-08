@@ -22,7 +22,8 @@ function Login() {
     };
 
     try {
-      const res = await axios.post(API_URL + '/login', req);
+      const config = {validateStatus: (status) => status};
+      const res = await axios.post(API_URL + '/login', req, config);
 
       if (res.status == 201) {
         const token = res.data.data['x-jwt-key'];

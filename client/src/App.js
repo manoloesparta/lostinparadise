@@ -19,7 +19,8 @@ function App() {
     const req = {headers: {'x-jwt-key': token}};
 
     try {
-      const res = await axios.post(API_URL + '/validate', req);
+      const config = {validateStatus: (status) => status};
+      const res = await axios.post(API_URL + '/validate', req, config);
       return res.status == 200;
     } catch {
       console.log('Is server down?');
