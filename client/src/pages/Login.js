@@ -7,7 +7,8 @@ import './login.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import logo from '../assets/cetys-logo.jpg';
 
-const API_URL = 'http://localhost:5000';
+// Scripts
+import {API_URL} from '../utils/constants';
 
 function Login() {
   const [username, setUsername] = useState('');
