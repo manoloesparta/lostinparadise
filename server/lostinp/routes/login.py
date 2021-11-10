@@ -14,7 +14,7 @@ from lostinp.utils.utils import lower_dict_keys
 bp = Blueprint("login")
 
 
-@bp.route("/login", methods=["POST"])
+@bp.post("/login")
 def login_route(request):
 
     token = JwtHelper()

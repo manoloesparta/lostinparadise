@@ -14,7 +14,7 @@ class Configuration:
     def get_value(self, key):
         res = self.env_dict.get(key)
         if not res:
-            raise EnvironmentValueNotFound("Value does not exist")
+            raise EnvironmentValueNotFound("Value does not exist for key: %s" % key)
         return res
 
     def _check_environment(self, env):
@@ -26,7 +26,7 @@ class Configuration:
         self.env_dict = {
             "ENV": environ.get("ENV", "dev"),
             "MONGO_STRING": environ.get("MONGO", "mongodb://root:toor@mongo:27017"),
-            "AUTH_BASE_URL": environ.get("CETYS_AUTH", "http://localhost:5000/auth"),
+            "AUTH_BASE_URL": environ.get("CETYS_AUTH", "http://auth:6666/auth"),
             "SECRET": environ.get("SECRET", "development-secret"),
             "SANIC_CONFIG": {
                 "host": environ.get("HOST", "0.0.0.0"),

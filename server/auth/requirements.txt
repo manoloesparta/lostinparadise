@@ -1,0 +1,2 @@
+sanic==21.9.1
+sanic-cors==1.0.1

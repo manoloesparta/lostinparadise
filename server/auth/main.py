@@ -1,10 +1,13 @@
-from sanic import Blueprint
+from sanic import Sanic
+from sanic_cors import CORS
 from sanic.response import json
 
-bp = Blueprint("mocked_auth")
+
+app = Sanic(__name__)
+CORS(app)
 
 
-@bp.get("/auth")
+@app.post("/auth")
 def mocked_auth_route(request):
     body = request.json
     username = body.get("Username")
@@ -16,3 +19,6 @@ def mocked_auth_route(request):
         return json({}, 400)
 
     return json({}, 200)
+
+
+app.run(host="0.0.0.0", port=6666, debug=True)
