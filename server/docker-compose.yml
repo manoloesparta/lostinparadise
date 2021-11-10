@@ -8,6 +8,7 @@ services:
     container_name: server
     depends_on:
       - mongo
+      - auth
     ports:
       - 5000:5000
     volumes:
@@ -15,9 +16,24 @@ services:
     networks:
       - lostinp_network
     environment:
-      ENV: dev
-      FLASK_ENV: development
-  
+      ENV: ${ENV}
+      MONGO: ${MONGO_CONNECTION_STRING}
+      CETYS_AUTH: ${CETYS_AUTHENTICATION_URL}
+      SECRET: ${SECRET_HASHING}
+      HOST: ${LOST_IN_PARADISE_HOST}
+      PORT: ${LOST_IN_PARADISE_PORT}
+
+  auth:
+    build: auth
+    image: lostinp_fake_auth
+    container_name: fake_auth 
+    ports:
+      - 6666:6666
+    volumes:
+      - ./auth:/usr/src/auth
+    networks:
+      - lostinp_network
+
   mongo:
     image: mongo
     container_name: mongo 
