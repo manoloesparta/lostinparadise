@@ -13,7 +13,7 @@ build:
 
 .PHONY: dev
 dev:
-  docker-compose --env-file ./envs/dev.env up
+	docker-compose --env-file ./envs/dev.env up
 
 .PHONY: prod
 prod:
