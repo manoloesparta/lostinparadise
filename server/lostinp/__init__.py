@@ -23,4 +23,9 @@ def create_app():
 
         app.blueprint(auth_blueprint)
 
+    if CONFIG.get_value("ENV") == "dev":
+        from lostinp.routes.auth import bp as auth_blueprint
+
+        app.blueprint(auth_blueprint)
+
     return app
