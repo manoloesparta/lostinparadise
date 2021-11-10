@@ -7,9 +7,17 @@ setup:
 	$(PIP) install --upgrade pip
 	$(PIP) install -r requirements.txt
 
+.PHONY: build
+build:
+	docker-compose build
+
 .PHONY: dev
 dev:
-	docker-compose up --build
+	docker-compose --env-file ./envs/dev.env up
+
+.PHONY: prod
+prod:
+	docker-compose --env-file ./envs/prod.env up mongo server
 
 .PHONY: load
 load:
