@@ -16,7 +16,7 @@ services:
     networks:
       - lostinp_network
     environment:
-      ENV: ${ENV:-dev}
+      ENV: ${ENV}
       MONGO: ${MONGO_CONNECTION_STRING}
       CETYS_AUTH: ${CETYS_AUTHENTICATION_URL}
       SECRET: ${SECRET_HASHING}

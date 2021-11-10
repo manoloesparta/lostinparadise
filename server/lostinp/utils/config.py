@@ -24,16 +24,16 @@ class Configuration:
 
     def _build_env_dict(self):
         self.env_dict = {
-            "ENV": environ.get("ENV", "dev"),
-            "MONGO_STRING": environ.get("MONGO", "mongodb://root:toor@mongo:27017"),
-            "AUTH_BASE_URL": environ.get("CETYS_AUTH", "http://auth:6666/auth"),
-            "SECRET": environ.get("SECRET", "development-secret"),
+            "ENV": environ.get("ENV"),
+            "MONGO_STRING": environ.get("MONGO"),
+            "AUTH_BASE_URL": environ.get("CETYS_AUTH"),
+            "SECRET": environ.get("SECRET"),
             "SANIC_CONFIG": {
-                "host": environ.get("HOST", "0.0.0.0"),
-                "port": environ.get("PORT", 5000),
-                "debug": environ.get("ENV", "dev") != "prod",
+                "host": environ.get("HOST"),
+                "port": environ.get("PORT"),
+                "debug": environ.get("ENV") != "prod",
             },
         }
 
 
-CONFIG = Configuration(environ.get("ENV", "dev"))
+CONFIG = Configuration(environ.get("ENV"))

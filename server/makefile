@@ -13,11 +13,11 @@ build:
 
 .PHONY: dev
 dev:
-	docker-compose up
+	docker-compose --env-file ./envs/dev.env up
 
 .PHONY: prod
 prod:
-	docker-compose --env-file ./prod.env up mongo server
+	docker-compose --env-file ./envs/prod.env up mongo server
 
 .PHONY: load
 load:
