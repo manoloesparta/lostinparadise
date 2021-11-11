@@ -9,6 +9,7 @@ requests==2.26.0
 
 # Testing
 pytest==6.2.5
+pytest-env==0.6.2
 behave==1.2.6
 sanic-testing==0.7.0
 mongomock==3.23.0

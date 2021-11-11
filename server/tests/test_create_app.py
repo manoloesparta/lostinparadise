@@ -8,10 +8,8 @@ from sanic_testing import TestManager
 @mongomock.patch(servers=(("mongo", 27017),))
 def mocked_app():
     from lostinp import create_app
-    from lostinp.routes.health import bp as healt_blueprint
 
     app = create_app()
-    app.blueprint(healt_blueprint)
     test = TestManager(app)
 
     return test
