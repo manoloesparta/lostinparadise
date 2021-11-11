@@ -1,11 +1,11 @@
 // Libraries
 import axios from 'axios';
 import React, {useState} from 'react';
+import Swal from 'sweetalert2';
 
 // Styles
 import './login.css';
-import 'bootstrap/dist/css/bootstrap.css';
-import logo from '../assets/cetys-logo.jpg';
+import 'bulma/css/bulma.min.css';
 
 // Scripts
 import {API_URL} from '../utils/constants';
@@ -17,6 +17,12 @@ function Login() {
   const onSubmit = async (event) => {
     event.preventDefault();
 
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: '¿Trataste con tu matricula y contraseña de Mi Campus?',
+      confirmButtonColor: '#edbd00',
+    });
     const req = {
       'username': username,
       'password': password,
@@ -31,7 +37,12 @@ function Login() {
         localStorage.setItem('user_token', token);
         console.log(`Token: ${token}`);
       } else {
-        console.log('Incorrect username or password');
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Trataste con tu matricula y contraseÃ±a de Mi Campus?',
+          confirmButtonColor: '#edbd00',
+        });
       }
     } catch {
       console.log('Is server down?');
@@ -47,32 +58,43 @@ function Login() {
   };
 
   return (
-    <div id="login-form">
-      <div>
-        <img className="mt-3 img-fluid" src={logo} id="logo"></img>
+    <div className="container is-fullhd">
+      <div style={{height: '100vh'}}
+        className="columns is-flex is-justify-content-center
+         is-align-items-center">
+        <div className="column">
+          <h1 className="title is-1 is-spaced">Cosas <br/>Perdidas</h1>
+          <h2 className="subtitle">by CETYS</h2>
+        </div>
+        <div className="column">
+          <form className="box">
+            <div className="field">
+              <label className="label">Matricula</label>
+              <div className="control">
+                <input className="input"
+                  type="email"
+                  placeholder="e.g. t030046"
+                  required onChange={handleUsername}/>
+              </div>
+            </div>
+
+            <div className="field">
+              <label className="label">Contraseña</label>
+              <div className="control">
+                <input className="input"
+                  type="password"
+                  placeholder="********"
+                  required onChange={handlePassword}/>
+              </div>
+            </div>
+            <hr/>
+            <button className="button is-primary"
+              id="signin"
+              type="button"
+              onClick={onSubmit}>Sign in</button>
+          </form>
+        </div>
       </div>
-      <form>
-        <div className="input-group input-group-lg">
-          <input type="text"
-            className="form-control"
-            name="username"
-            placeholder="Matrícula"
-            required onChange={handleUsername}/>
-        </div>
-        <div className="input-group input-group-lg">
-          <input type="password"
-            className="form-control"
-            name="password"
-            placeholder="Contraseña"
-            required onChange={handlePassword}/>
-        </div>
-        <div className="buttonContainer mt-3">
-          <button type="submit"
-            className="btn btn-warning btn-lg"
-            onClick={onSubmit}>
-          Iniciar sesión</button>
-        </div>
-      </form>
     </div>
   );
 }

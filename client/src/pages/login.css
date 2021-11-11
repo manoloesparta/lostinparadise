@@ -1,14 +1,7 @@
-.input-group{
-    width: 40% !important;
-    margin: 0 auto;
-    padding-bottom: 5px;
+body {
+    background-color: #F8F8F8;
 }
 
-#login-form{
-    padding-top: 5vh;
-}
-
-.btn-warning{
-    background-color: #f7d117;
-    border-color: #f7d117;
+#signin {
+    background-color: #edbd00;
 }
