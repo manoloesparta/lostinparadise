@@ -17,12 +17,6 @@ function Login() {
   const onSubmit = async (event) => {
     event.preventDefault();
 
-    Swal.fire({
-      icon: 'error',
-      title: 'Oops...',
-      text: '¿Trataste con tu matricula y contraseña de Mi Campus?',
-      confirmButtonColor: '#edbd00',
-    });
     const req = {
       'username': username,
       'password': password,
@@ -40,7 +34,7 @@ function Login() {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          text: 'Trataste con tu matricula y contraseÃ±a de Mi Campus?',
+          text: '¿Trataste con tu matricula y contraseña de Mi Campus?',
           confirmButtonColor: '#edbd00',
         });
       }
@@ -58,10 +52,9 @@ function Login() {
   };
 
   return (
-    <div className="container is-fullhd">
-      <div style={{height: '100vh'}}
-        className="columns is-flex is-justify-content-center
-         is-align-items-center">
+    <div className="container is-flex is-justify-content-center
+         is-align-items-center" style={{height: '100vh'}}>
+      <div className="columns" style={{width: '100vw'}}>
         <div className="column">
           <h1 className="title is-1 is-spaced">Cosas <br/>Perdidas</h1>
           <h2 className="subtitle">by CETYS</h2>
