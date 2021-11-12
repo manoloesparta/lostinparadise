@@ -1,0 +1,22 @@
+@startuml Validate token
+
+actor User
+participant "Validate\nController" as Controller
+database "User\nRepository" as UserRepo
+
+User -> Controller: Token
+Controller -> UserRepo: User registered?
+
+alt Username registered
+
+    UserRepo -> Controller: Yes
+    Controller -> User: Ok
+
+else Username not registered
+
+    UserRepo -> Controller: No
+    Controller -> User: Unauthorized
+
+end
+
+@enduml

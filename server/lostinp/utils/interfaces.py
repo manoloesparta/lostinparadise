@@ -11,6 +11,14 @@ class DbHandler:
         pass
 
     @abstractmethod
+    def get_all(self):
+        pass
+
+    @abstractmethod
+    def count(self):
+        pass
+
+    @abstractmethod
     def insert_document(self, insert):
         pass
 
@@ -30,14 +38,4 @@ class DbHandler:
 class AuthenticationService:
     @abstractmethod
     def verify(self, username, password):
-        pass
-
-
-class TokenService:
-    @abstractmethod
-    def create_user_token(self, username):
-        pass
-
-    @abstractmethod
-    def get_username_claim(self, token):
         pass

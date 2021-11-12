@@ -3,11 +3,10 @@ from jwt.exceptions import InvalidTokenError
 from datetime import datetime, timedelta
 
 from lostinp.utils.config import CONFIG
-from lostinp.utils.interfaces import TokenService
 from lostinp.utils.exceptions import InvalidToken, ClaimNotFound
 
 
-class JwtService(TokenService):
+class JwtHelper:
     def __init__(self, secret=CONFIG.get_value("SECRET")):
         self.secret = secret
 
@@ -21,10 +20,7 @@ class JwtService(TokenService):
         token = jwt.encode(claims, self.secret, algorithm="HS256")
         return token
 
-    def get_username_claim(self, token):
-        return self._get_claim(token, "username")
-
-    def _get_claim(self, token, key):
+    def get_claim(self, token, key):
         try:
             claims = jwt.decode(token, self.secret, algorithms=["HS256"])
             return claims[key]

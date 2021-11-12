@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../assets/cetys-logo.jpg';
+// import logo from '../assets/cetys-logo.jpg';
 import './Home.css';
 
 class Home extends React.Component {
@@ -13,7 +13,8 @@ class Home extends React.Component {
     return (
       <div id="login-form">
         <div>
-          <img className="mt-3" src={logo} id="logo"></img>
+          {/* <img className="mt-3" src={logo} id="logo"></img> */}
+          <h1>Busqueda</h1>
         </div>
         <form>
           <div className="input-group input-group-lg">

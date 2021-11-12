@@ -1,28 +1,21 @@
-from flask import Flask
-from flask_cors import CORS
-from gevent.pywsgi import WSGIServer
+from sanic import Sanic
+from sanic_cors import CORS
 
 from lostinp.utils.config import CONFIG
 
 
-def app_factory(env):
-    app = Flask(__name__)
+def create_app():
+    app = Sanic(__name__)
     CORS(app)
 
-    from lostinp.routes.login import mod as users_module
+    from lostinp.routes.login import bp as login_blueprint
+    from lostinp.routes.validate import bp as validate_blueprint
+    from lostinp.routes.items import bp as search_items_blueprint
+    from lostinp.routes.health import bp as health_blueprint
 
-    app.register_blueprint(users_module)
+    app.blueprint(login_blueprint)
+    app.blueprint(validate_blueprint)
+    app.blueprint(search_items_blueprint)
+    app.blueprint(health_blueprint)
 
-    def app_runner():
-        port = CONFIG.get_value("SERVER_PORT")
-
-        if env.lower() == "prod":
-            http_server = WSGIServer(
-                listener=("0.0.0.0", port),
-                application=app,
-            )
-            return http_server.serve_forever()
-
-        return app.run(host="0.0.0.0", port=port, debug=True)
-
-    return app_runner
+    return app

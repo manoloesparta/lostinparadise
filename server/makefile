@@ -4,22 +4,39 @@ PIP = venv/bin/pip
 .PHONY: setup 
 setup:
 	virtualenv -p $(env) venv
+	$(PIP) install --upgrade pip
 	$(PIP) install -r requirements.txt
+
+.PHONY: build
+build:
+	docker-compose build
 
 .PHONY: dev
 dev:
-	sudo rm -rf data
+	docker-compose --env-file ./envs/dev.env up
+
+.PHONY: prod
+prod:
+	docker-compose --env-file ./envs/prod.env up mongo server
+
+.PHONY: load
+load:
+	docker-compose up -d mongo 
+	$(PYTHON) scripts/load_data.py
+
+.PHONY: wipe
+wipe:
 	docker-compose down
-	docker-compose up --build
+	sudo rm -rf database
 
 .PHONY: tests 
 tests:
 	$(PYTHON) -m coverage run -m pytest tests --disable-pytest-warnings
-	$(PYTHON) -m coverage report -m
+	$(PYTHON) -m coverage report -i
 
 .PHONY: format 
 format:
-	$(PYTHON) -m black . --exclude "(data|venv)"
+	$(PYTHON) -m black . --exclude "(database|venv)"
 
 .PHONY: clean 
 clean:

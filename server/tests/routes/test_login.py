@@ -1,59 +1,50 @@
 import mongomock
+from pytest import fixture
 from unittest.mock import patch
-from pytest import fixture, raises
+from sanic_testing import TestManager
 
-import json
-from flask import Flask
+from lostinp.services.authentication import MockedAuthService
 
-from tests.helpers.jwt import get_claim_from_jwt
 from tests.routes.mocks.login import (
-    VALID_REQUEST,
-    HEADERS,
-    INVALID_USER_REQUEST,
     INCOMPLETE_REQUEST,
+    INVALID_USER_REQUEST,
+    VALID_REQUEST,
 )
-
-app = Flask(__name__)
 
 
 @mongomock.patch(servers=(("mongo", 27017),))
 @fixture
-def mocked_login_route():
-    from lostinp.routes.login import mod as login_module
+def mocked_app():
+    from sanic import Sanic
+    from lostinp.routes.login import bp as login_blueprint
 
-    app.register_blueprint(login_module)
+    app = Sanic("test_login_route")
+    app.blueprint(login_blueprint)
 
-    yield app.test_client()
-
-
-def test_create_token_succesfully(mocked_login_route):
-    payload = json.dumps(VALID_REQUEST)
-    response = mocked_login_route.post("/login", data=payload, headers=HEADERS)
-    parsed = json.loads(response.data)
-    assert parsed.get("statusCode") == 201
-
-    token = parsed.get("message", {}).get("X-Jwt-Key")
-    username = get_claim_from_jwt(token, "username")
-    assert username == VALID_REQUEST["username"]
+    test = TestManager(app)
+    client = test.test_client
+    return client
 
 
-def test_handler_bad_request(mocked_login_route):
-    payload = json.dumps(INCOMPLETE_REQUEST)
-    response = mocked_login_route.post("/login", data=payload, headers=HEADERS)
-    parsed = json.loads(response.data)
-    assert parsed.get("statusCode") == 400
+@patch("lostinp.routes.login.CetysAuthentication", MockedAuthService)
+def test_create_token_succesfully(mocked_app):
+    _, response = mocked_app.post("/login", json=VALID_REQUEST)
+    assert response.status == 201
 
 
-def test_handler_unauthorized(mocked_login_route):
-    payload = json.dumps(INVALID_USER_REQUEST)
-    response = mocked_login_route.post("/login", data=payload, headers=HEADERS)
-    parsed = json.loads(response.data)
-    assert parsed.get("statusCode") == 401
+@patch("lostinp.routes.login.CetysAuthentication", MockedAuthService)
+def test_handler_bad_request(mocked_app):
+    _, response = mocked_app.post("/login", json=INCOMPLETE_REQUEST)
+    assert response.status == 400
 
 
-@patch("lostinp.routes.login.LoginController.do_it", side_effect=Exception("Test"))
-def test_handler_internal_server_error(do_it_mock, mocked_login_route):
-    payload = json.dumps(VALID_REQUEST)
-    response = mocked_login_route.post("/login", data=payload, headers=HEADERS)
-    parsed = json.loads(response.data)
-    assert parsed.get("statusCode") == 500
+@patch("lostinp.routes.login.CetysAuthentication", MockedAuthService)
+def test_handler_unauthorized(mocked_app):
+    _, response = mocked_app.post("/login", json=INVALID_USER_REQUEST)
+    assert response.status == 401
+
+
+@patch("lostinp.routes.login.CetysAuthentication", MockedAuthService)
+def test_handler_internal_server_error(mocked_app):
+    _, response = mocked_app.post("/login")
+    assert response.status == 500

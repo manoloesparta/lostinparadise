@@ -1,10 +1,10 @@
 VALID_REQUEST = {
-    "username": "t30046",
+    "username": "t030046",
     "password": "superstrongpassword",
 }
 
 INVALID_USER_REQUEST = {
-    "username": "t30046",
+    "username": "t030046",
     "password": "password",
 }
 

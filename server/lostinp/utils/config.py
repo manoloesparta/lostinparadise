@@ -14,7 +14,7 @@ class Configuration:
     def get_value(self, key):
         res = self.env_dict.get(key)
         if not res:
-            raise EnvironmentValueNotFound("Value does not exist")
+            raise EnvironmentValueNotFound("Value does not exist for key: %s" % key)
         return res
 
     def _check_environment(self, env):
@@ -24,11 +24,16 @@ class Configuration:
 
     def _build_env_dict(self):
         self.env_dict = {
-            "SERVER_PORT": 5000,
-            "MONGO_CONN_STRING": "mongodb://root:toor@mongo:27017",
-            "AUTH_SERVICE_BASE_URL": "http://localhost:5000/auth",
-            "SECRET": "development-secret",
+            "ENV": environ.get("ENV"),
+            "MONGO_STRING": environ.get("MONGO"),
+            "AUTH_BASE_URL": environ.get("CETYS_AUTH"),
+            "SECRET": environ.get("SECRET"),
+            "SANIC_CONFIG": {
+                "host": environ.get("HOST"),
+                "port": environ.get("PORT"),
+                "debug": environ.get("ENV") != "prod",
+            },
         }
 
 
-CONFIG = Configuration(environ.get("ENV", "dev"))
+CONFIG = Configuration(environ.get("ENV"))
