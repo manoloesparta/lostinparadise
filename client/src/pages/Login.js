@@ -4,7 +4,7 @@ import React, {useState} from 'react';
 import Swal from 'sweetalert2';
 
 // Styles
-import './login.css';
+import './Login.css';
 import 'bulma/css/bulma.min.css';
 
 // Scripts
