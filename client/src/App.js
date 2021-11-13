@@ -1,36 +1,30 @@
 // Libraries
-import React, {useEffect} from 'react';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import React from 'react';
+// import {BrowserRouter} from 'react-router-dom';
+// import {Route, Routes} from 'react-router-dom';
+// import {Fragment} from 'react';
 
 // Styles
-import './App.css';
+// import './App.css';
 
 // Scripts
-import {isTokenValid} from './utils/token';
+// import {isTokenValid} from './utils/token';
 
 // Components
-import Home from './pages/Home';
-import Login from './pages/Login';
+// import Home from './pages/Home';
+// import Login from './pages/Login';
+import Search from './pages/search';
 
 function App() {
-  useEffect(async () => {
-    const currentToken = localStorage.getItem('user_token');
-    const logged = await isTokenValid(currentToken);
-    console.log(logged);
-  }, []);
+  // useEffect(async () => {
+  //   const currentToken = localStorage.getItem('user_token');
+  //   const logged = await isTokenValid(currentToken);
+  //   console.log(logged);
+  // }, []);
 
   return (
     <div className="App">
-      <BrowserRouter>
-        <Switch>
-          <Route exact path = "/home">
-            <Home ></Home>
-          </Route>
-          <Route exact path={['/', '/login']}>
-            <Login></Login>
-          </Route>
-        </Switch>
-      </BrowserRouter>
+      <Search></Search>
     </div>
   );
 }
