@@ -1,14 +1,10 @@
 // Libraries
-import axios from 'axios';
 import React, {useState} from 'react';
-import Swal from 'sweetalert2';
 
 // Styles
 import './Login.css';
 import 'bulma/css/bulma.min.css';
 
-// Scripts
-import {API_URL} from '../utils/constants';
 
 function Login() {
   const [username, setUsername] = useState('');
@@ -16,31 +12,7 @@ function Login() {
 
   const onSubmit = async (event) => {
     event.preventDefault();
-
-    const req = {
-      'username': username,
-      'password': password,
-    };
-
-    try {
-      const config = {validateStatus: (status) => status};
-      const res = await axios.post(API_URL + '/login', req, config);
-
-      if (res.status == 201) {
-        const token = res.data.data['x-jwt-key'];
-        localStorage.setItem('user_token', token);
-        console.log(`Token: ${token}`);
-      } else {
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: '¿Trataste con tu matricula y contraseña de Mi Campus?',
-          confirmButtonColor: '#edbd00',
-        });
-      }
-    } catch {
-      console.log('Is server down?');
-    }
+    console.log(username, password);
   };
 
   const handlePassword = (event) => {
@@ -91,6 +63,5 @@ function Login() {
     </div>
   );
 }
-
 
 export default Login;

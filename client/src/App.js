@@ -1,30 +1,20 @@
 // Libraries
 import React from 'react';
-// import {BrowserRouter} from 'react-router-dom';
-// import {Route, Routes} from 'react-router-dom';
-// import {Fragment} from 'react';
-
-// Styles
-// import './App.css';
-
-// Scripts
-// import {isTokenValid} from './utils/token';
+import {Routes, Route, BrowserRouter as Router} from 'react-router-dom';
 
 // Components
-// import Home from './pages/Home';
-// import Login from './pages/Login';
-import Search from './pages/search';
+import Search from './pages/Search';
+import Login from './pages/Login';
 
 function App() {
-  // useEffect(async () => {
-  //   const currentToken = localStorage.getItem('user_token');
-  //   const logged = await isTokenValid(currentToken);
-  //   console.log(logged);
-  // }, []);
-
   return (
     <div className="App">
-      <Search></Search>
+      <Router>
+        <Routes>
+          <Route path="/search" element={<Search />} />
+          <Route path="/login" element={<Login />} />
+        </Routes>
+      </Router>
     </div>
   );
 }
