@@ -30,6 +30,8 @@
     "rules": {
         "require-jsdoc": "off",
         "linebreak-style": 0,
-        "no-valid-this": "off"
+        "no-valid-this": "off",
+        "react/prop-types": "off",
+        "react/jsx-key": "off"
     }
 }

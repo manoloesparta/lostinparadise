@@ -1,78 +1,67 @@
-import React from 'react';
-// import {ReactComponent as Logo} from '../logo192.png';
-import logo from '../assets/cetys-logo.jpg';
-import './login.css';
-import axios from 'axios';
-let JWT = '';
+// Libraries
+import React, {useState} from 'react';
 
-class Login extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: '',
-      password: '',
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+// Styles
+import './Login.css';
+import 'bulma/css/bulma.min.css';
 
-  handleChange(e) {
-    const value = e.target.value;
-    const name = e.target.name;
-    this.setState({[name]: value}, () => {
-      // console.log(this.state);
-    });
-  }
 
-  handleSubmit(e) {
-    e.preventDefault();
-    axios.post('http://localhost:5000/login', this.state)
-        .then((response) => {
-          JWT = response.data.data['x-jwt-key'];
-          if (JWT) {
-            localStorage.setItem('user_token', JWT);
-            console.log('JWT : ' + JWT);
-            console.log(response.data.data);
-          } else {
-            console.log(response.data.data);
-          }
-          console.log('Status Code ' + response.status);
-        }).catch((err) => {
+function Login() {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
-        });
-  }
-  render() {
-    return (
-      <div id="login-form">
-        <div>
-          <img className="mt-3 img-fluid" src={logo} id="logo"></img>
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    console.log(username, password);
+  };
+
+  const handlePassword = (event) => {
+    setPassword(event.target.value);
+  };
+
+  const handleUsername = (event) => {
+    setUsername(event.target.value);
+  };
+
+  return (
+    <div className="container is-flex is-justify-content-center
+         is-align-items-center" style={{height: '100vh'}}>
+      <div className="columns" style={{width: '100vw'}}>
+        <div className="column">
+          <h1 className="title is-1 is-spaced">Cosas <br/>Perdidas</h1>
+          <h2 className="subtitle">by CETYS</h2>
         </div>
-        <form onSubmit={this.handleSubmit}>
-          <div className="input-group input-group-lg">
-            <input type="text"
-              className="form-control"
-              name="username"
-              placeholder="Matrícula"
-              required onChange={this.handleChange} />
-          </div>
-          <div className="input-group input-group-lg">
-            <input type="password"
-              className="form-control"
-              name="password"
-              placeholder="Contraseña"
-              required onChange={this.handleChange}/>
-          </div>
-          <div className="buttonContainer mt-3">
-            <button type="submit"
-              className="btn btn-warning btn-lg"
-              onSubmit={this.handleSubmit}>
-            Iniciar sesión</button>
-          </div>
-        </form>
-      </div>
-    );
-  }
-}
+        <div className="column">
+          <form className="box">
+            <div className="field">
+              <label className="label">Matricula</label>
+              <div className="control">
+                <input className="input"
+                  type="email"
+                  placeholder="e.g. t030046"
+                  required onChange={handleUsername}/>
+              </div>
+            </div>
 
+            <div className="field">
+              <label className="label">Contraseña</label>
+              <div className="control">
+                <input className="input"
+                  type="password"
+                  placeholder="********"
+                  required onChange={handlePassword}/>
+              </div>
+            </div>
+            <hr/>
+            <button className="button is-primary"
+              id="signin"
+              type="button"
+              onClick={onSubmit}>Sign in</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default Login;
