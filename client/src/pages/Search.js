@@ -92,13 +92,13 @@ function Search() {
   const updateCurrentItems = (index) => {
     if (index == currentPage) {
       return (
-        <li>
+        <li key={index}>
           <a className="pagination-link is-current">{index + 1}</a>
         </li>
       );
     }
     return (
-      <li>
+      <li key={index}>
         <a className="pagination-link" onClick={() => {
           setCurrentPage(index);
         }}>{index + 1}</a>
@@ -117,8 +117,9 @@ function Search() {
             type="text"
             placeholder="Cargador, camisa, chamarra ..."/>
           <div className="items">
-            {itemsShown.map((item) => (
-              <Item icon={item.icon}
+            {itemsShown.map((item, index) => (
+              <Item key={index}
+                icon={item.icon}
                 categoria={item.categoria}
                 donde={item.donde}
                 cuando={item.cuando}
