@@ -18,9 +18,10 @@ class GetLostItemsController:
         for item in items:
             one = {
                 "id": item.uuid,
-                "status": item.status,
+                "category": item.status,
                 "description": item.description,
-                "found": item.foundOn,
+                "foundOn": item.foundOn,
+                "buildingName": item.buildingName,
             }
             cleaned.append(one)
         return cleaned
