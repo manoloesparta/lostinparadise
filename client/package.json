@@ -1,25 +1,22 @@
 {
-  "name": "client",
-  "version": "0.1.0",
+  "name": "lostinparadise",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^11.2.7",
-    "@testing-library/user-event": "^12.8.3",
     "axios": "^0.23.0",
-    "bootstrap": "^5.1.2",
+    "bulma": "^0.9.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-router-dom": "^5.3.0",
+    "react-router-dom": "^6.0.2",
     "react-scripts": "4.0.3",
-    "web-vitals": "^1.1.2"
+    "sweetalert2": "^11.1.10"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "npx eslint ."
+    "lint": "npx eslint . --fix"
   },
   "eslintConfig": {
     "extends": [
@@ -43,7 +40,6 @@
     "@babel/eslint-parser": "^7.15.7",
     "eslint": "^7.32.0",
     "eslint-config-google": "^0.14.0",
-    "eslint-plugin-jest": "^24.4.2",
     "eslint-plugin-react": "^7.26.0"
   }
 }

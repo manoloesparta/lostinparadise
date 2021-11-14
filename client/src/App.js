@@ -1,22 +1,20 @@
+// Libraries
 import React from 'react';
-import './App.css';
-import Login from '../src/pages/Login';
-import Home from '../src/pages/Home';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import {Routes, Route, BrowserRouter as Router} from 'react-router-dom';
+
+// Components
+import Search from './pages/Search';
+import Login from './pages/Login';
 
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
-        <Switch>
-          <Route exact path={['/', '/login']}>
-            <Login></Login>
-          </Route>
-          <Route exact path = "/home">
-            <Home ></Home>
-          </Route>
-        </Switch>
-      </BrowserRouter>
+      <Router>
+        <Routes>
+          <Route path="/search" element={<Search />} />
+          <Route path="/login" element={<Login />} />
+        </Routes>
+      </Router>
     </div>
   );
 }
