@@ -18,7 +18,7 @@ class GetLostItemsController:
         for item in items:
             one = {
                 "id": item.uuid,
-                "category": item.status,
+                "category": item.category,
                 "description": item.description,
                 "foundOn": item.foundOn,
                 "buildingName": item.buildingName,
