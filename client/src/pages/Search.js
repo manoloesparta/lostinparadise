@@ -1,11 +1,13 @@
 // Libraries
 import React, {useEffect, useState} from 'react';
-import 'bulma/css/bulma.min.css';
+import {useNavigate} from 'react-router';
 
 // Components
 import Item from './Item';
+import useAuth from '../utils/auth';
 
 // Custom styles
+import 'bulma/css/bulma.min.css';
 import './Search.css';
 
 const data = [
@@ -89,6 +91,14 @@ function Search() {
     setItemsShown(slice);
   }, [currentPage]);
 
+  const {logout} = useAuth();
+  const navigate = useNavigate();
+
+  const logoutHandler = () => {
+    logout();
+    navigate('/login');
+  };
+
   const updateCurrentItems = (index) => {
     if (index == currentPage) {
       return (
@@ -127,7 +137,8 @@ function Search() {
             ))}
           </div>
           <nav className="pagination">
-            <a className="pagination-next logout">Log Out</a>
+            <a className="pagination-next logout"
+              onClick={logoutHandler}>Log Out</a>
             <ul className="pagination-list">
               {[...Array(numberOfPages).keys()]
                   .map(updateCurrentItems)}

@@ -32,6 +32,7 @@
         "linebreak-style": 0,
         "no-valid-this": "off",
         "react/prop-types": "off",
-        "react/jsx-key": "off"
+        "react/jsx-key": "off",
+        "react/display-name": "off"
     }
 }
