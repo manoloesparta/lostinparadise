@@ -1,19 +1,32 @@
 // Libraries
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 
 // Styles
 import './Login.css';
 import 'bulma/css/bulma.min.css';
 
+// Components
+import useAuth from '../utils/auth';
 
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
+  const {authed, login} = useAuth();
+  const navigate = useNavigate();
+
   const onSubmit = async (event) => {
     event.preventDefault();
-    console.log(username, password);
+    await login(username, password);
+    navigate('/search');
   };
+
+  useEffect(() => {
+    if (authed) {
+      navigate('/search');
+    }
+  }, [authed]);
 
   const handlePassword = (event) => {
     setPassword(event.target.value);
