@@ -10,75 +10,27 @@ import useAuth from '../utils/auth';
 import 'bulma/css/bulma.min.css';
 import './Search.css';
 
-const data = [
-  {
-    'categoria': 'fermin',
-    'cuando': '2020-01-24',
-    'donde': 'asudsuas',
-    'desc': 'los ojos tristes,',
-    'icon': 'https://bulma.io/images/placeholders/96x96.png',
-  },
-  {
-    'categoria': 'fermin',
-    'cuando': '2020-01-24',
-    'donde': 'asudsuas',
-    'desc': 'los ojos tristes,',
-    'icon': 'https://bulma.io/images/placeholders/96x96.png',
-  },
-  {
-    'categoria': 'jbm',
-    'cuando': 'square up',
-    'donde': 'jejejej',
-    'desc': 'you acrting sussy,',
-    'icon': 'https://bulma.io/images/placeholders/96x96.png',
-  },
-  {
-    'categoria': 'm',
-    'cuando': '2020-01-24',
-    'donde': 'fsdjkfsdjkdj',
-    'desc': 'lil uzi vert,',
-    'icon': 'https://bulma.io/images/placeholders/96x96.png',
-  },
-  {
-    'categoria': 'notepad',
-    'cuando': '2020-01-24',
-    'donde': 'share screen',
-    'desc': 'willl smithh,',
-    'icon': 'https://bulma.io/images/placeholders/96x96.png',
-  },
-  {
-    'categoria': 'vscode',
-    'cuando': '2020-01-24',
-    'donde': 'everyday ashbafskfj ',
-    'desc': 'august,',
-    'icon': 'https://bulma.io/images/placeholders/96x96.png',
-  },
-  {
-    'categoria': 'manolo',
-    'cuando': '2020-01-24',
-    'donde': 'manuel',
-    'desc': 'heyyyy manuel',
-    'icon': 'https://bulma.io/images/placeholders/96x96.png',
-  },
-  {
-    'categoria': 'cetys men',
-    'cuando': '2020-01-24',
-    'donde': 'mock data ',
-    'desc': 'willl smithh,',
-    'icon': 'https://bulma.io/images/placeholders/96x96.png',
-  },
-  {
-    'categoria': 'android studio',
-    'cuando': '2020-01-24',
-    'donde': 'omg ',
-    'desc': 'jada,',
-    'icon': 'https://bulma.io/images/placeholders/96x96.png',
-  },
-];
+const API_URL = 'http://localhost:5000';
 
 function Search() {
   const ITEMS_PER_PAGE = 4;
-  const items = data;
+
+  const [query, setQuery] = useState('default query string');
+  const [items, setItems] = useState([]);
+  useEffect(async () => {
+    const body = {
+      'method': 'POST',
+      'body': JSON.stringify({query: query}),
+      'headers': {'x-jwt-key': localStorage.getItem('user_token')},
+    };
+    const response = await fetch(API_URL + '/search', body);
+    if (response.status == 200) {
+      const json = await response.json();
+      setItems(json.data.items);
+      console.log(json.data.items);
+    }
+  }, [query]);
+
   const numberOfPages = Math.ceil(items.length / ITEMS_PER_PAGE);
 
   const [currentPage, setCurrentPage] = useState(0);
@@ -89,7 +41,7 @@ function Search() {
     const end = currentPage * ITEMS_PER_PAGE + ITEMS_PER_PAGE;
     const slice = items.slice(start, end);
     setItemsShown(slice);
-  }, [currentPage]);
+  }, [currentPage, items]);
 
   const {logout} = useAuth();
   const navigate = useNavigate();
@@ -97,6 +49,12 @@ function Search() {
   const logoutHandler = () => {
     logout();
     navigate('/login');
+  };
+
+  const queryHandler = (event) => {
+    if (event.key == 'Enter') {
+      setQuery(event.target.value);
+    }
   };
 
   const updateCurrentItems = (index) => {
@@ -125,15 +83,16 @@ function Search() {
           <h1 className="title is-1">¿Perdiste Algo?</h1>
           <input className="input is-large is-focused"
             type="text"
+            onKeyUp={queryHandler}
             placeholder="Cargador, camisa, chamarra ..."/>
           <div className="items">
             {itemsShown.map((item, index) => (
               <Item key={index}
                 icon={item.icon}
-                categoria={item.categoria}
-                donde={item.donde}
-                cuando={item.cuando}
-                desc={item.desc}/>
+                category={item.category}
+                buildingName={item.buildingName}
+                foundOn={item.foundOn}
+                description={item.description}/>
             ))}
           </div>
           <nav className="pagination">
