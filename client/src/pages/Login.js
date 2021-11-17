@@ -1,7 +1,10 @@
 // Libraries
 import React, {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
+<<<<<<< HEAD
 import Swal from 'sweetalert2';
+=======
+>>>>>>> 4d7e62b3b1f0cc40b309fc95c5f25a948b04fb7b
 
 // Styles
 import './Login.css';
