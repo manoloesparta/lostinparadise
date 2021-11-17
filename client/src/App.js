@@ -1,6 +1,11 @@
 // Libraries
 import React from 'react';
-import {Routes, Route, BrowserRouter as Router} from 'react-router-dom';
+import {
+  Routes,
+  Route,
+  Navigate,
+  BrowserRouter as Router,
+} from 'react-router-dom';
 
 // Components
 import Search from './pages/Search';
@@ -16,6 +21,7 @@ function App() {
           <Route path="/search" element={<Private/>}>
             <Route path="/search" element={<Search/>}/>
           </Route>
+          <Route path="/" element={<Navigate to ="/login" />}/>
           <Route path="/login" element={<Login/>}/>
         </Routes>
       </Router>
