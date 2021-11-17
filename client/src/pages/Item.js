@@ -8,7 +8,8 @@ function Item({category, foundOn, buildingName, description, icon}) {
         <div className="media">
           <div className="media-left">
             <figure className="image">
-              <img src={icon} alt="Placeholder image"/>
+              <img src={icon} alt="placeholder"
+                style={{width: '100px'}}/>
             </figure>
           </div>
           <div className="media-content">
