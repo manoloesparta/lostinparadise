@@ -6,6 +6,14 @@ body {
     background-color: #F8F8F8 !important;
 }
 
+.columns {
+    margin-bottom: 0 !important;
+}
+
+.App {
+    background-color: #F8F8F8 !important;
+}
+
 #signin {
     background-color: #EDBD00;
 }
