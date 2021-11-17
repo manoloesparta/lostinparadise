@@ -27,7 +27,6 @@ function Search() {
     if (response.status == 200) {
       const json = await response.json();
       setItems(json.data.items);
-      console.log(json.data.items);
     }
   }, [query]);
 
@@ -41,7 +40,7 @@ function Search() {
     const end = currentPage * ITEMS_PER_PAGE + ITEMS_PER_PAGE;
     const slice = items.slice(start, end);
     setItemsShown(slice);
-  }, [currentPage, items]);
+  }, [currentPage, items, query]);
 
   const {logout} = useAuth();
   const navigate = useNavigate();
