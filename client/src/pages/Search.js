@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 // Components
 import Item from './Item';
 import useAuth from '../utils/auth';
+import {iconSelector} from '../utils/icon';
 
 // Custom styles
 import 'bulma/css/bulma.min.css';
@@ -97,7 +98,7 @@ function Search() {
           <div className="items">
             {itemsShown.map((item, index) => (
               <Item key={index}
-                icon={item.icon}
+                icon={iconSelector(item.category)}
                 category={item.category}
                 buildingName={item.buildingName}
                 foundOn={item.foundOn}
