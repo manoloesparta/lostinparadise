@@ -2,6 +2,10 @@ body {
     background-color: #F8F8F8 !important;
 }
 
+.column {
+    background-color: #F8F8F8 !important;
+}
+
 #signin {
     background-color: #EDBD00;
 }

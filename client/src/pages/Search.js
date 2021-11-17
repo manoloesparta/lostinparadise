@@ -1,6 +1,7 @@
 // Libraries
 import React, {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router';
+import Swal from 'sweetalert2';
 
 // Components
 import Item from './Item';
@@ -23,11 +24,19 @@ function Search() {
       'body': JSON.stringify({query: query}),
       'headers': {'x-jwt-key': localStorage.getItem('user_token')},
     };
-    const response = await fetch(API_URL + '/search', body);
-    if (response.status == 200) {
-      const json = await response.json();
-      setItems(json.data.items);
-      console.log(json.data.items);
+    try {
+      const response = await fetch(API_URL + '/search', body);
+      if (response.status == 200) {
+        const json = await response.json();
+        setItems(json.data.items);
+      }
+    } catch {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Algo fallo, intentalo mas tarde',
+        confirmButtonColor: '#edbd00',
+      });
     }
   }, [query]);
 
