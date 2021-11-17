@@ -1,6 +1,7 @@
 // Libraries
 import React, {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 // Styles
 import './Login.css';
@@ -18,7 +19,15 @@ function Login() {
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    await login(username, password);
+    const success = await login(username, password);
+    if (!success) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: '¿Trataste con tu matricula y contraseña de Mi Campus?',
+        confirmButtonColor: '#edbd00',
+      });
+    }
     navigate('/search');
   };
 
