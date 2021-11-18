@@ -32,10 +32,11 @@ make wipe
 ### Client
 You must be on client directory before running these commands!
 
-The following commands are for starting the application
+This command will install all the applications dependencies
 ```bash
 npm i
 ```
+This will start the application
 ```bash
 npm run start
 ```
