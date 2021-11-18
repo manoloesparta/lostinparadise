@@ -2,7 +2,7 @@
 
 > Funky music starts
 
-Ths application serves as a way for CETYS university to manage their lost and found items that are found throughout the school year.
+This application serves as a way for CETYS university to manage their lost and found items that are found throughout the school year.
 
 ## Requirements
 - Docker 20.10+
@@ -32,7 +32,7 @@ make wipe
 ### Client
 You must be on client directory before running these commands!
 
-This command will install all the applications dependencies
+This command will install all the application's dependencies
 ```bash
 npm i
 ```
