@@ -5,8 +5,8 @@
 Ths application serves as a way for CETYS university to manage their lost and found items that are found throughout the school year.
 
 ## Requirements
-1. [Docker](https://www.docker.com/products/docker-desktop) 20+
-2. docker compose 3+
+1. Docker 20.10+
+2. docker compose 3.0+
 3. make 4.1+
 4. npm 6.14+
 5. node 14.16+
@@ -14,16 +14,35 @@ Ths application serves as a way for CETYS university to manage their lost and fo
 ## Usage
 
 ### Server
-Make sure that Docker is running, open a terminal and on the server directory run
-```bash
-docker-compose build
-```
-After that on the same terminal run
+You must be on server directory before running these commands!
+
+Make sure that Docker is running, open a terminal and run
 ```bash
 docker-compose --env-file ./envs/dev.env up
 ```
+This will start the server
+
+To load data run
+```bash
+docker-compose up -d mongo 
+```
+and
+```bash
+$(PYTHON) scripts/load_data.py
+```
+
+To wipe data run
+```bash
+docker-compose down
+```
+and
+```bash
+sudo rm -rf database
+```
 ### Client
-Open a new terminal (without closing the last one), move to client directory, run
+You must be on client directory before running these commands!
+
+Open a new terminal (without closing the last one) and run
 ```bash
 npm i
 ```
