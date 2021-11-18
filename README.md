@@ -28,6 +28,7 @@ The following command is for deleting the data from the server
 ```bash
 make wipe
 ```
+**If you cant start the server, try deleting and loading all data again.**
 ### Client
 You must be on client directory before running these commands!
 
