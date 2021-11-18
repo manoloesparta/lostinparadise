@@ -16,23 +16,17 @@ Ths application serves as a way for CETYS university to manage their lost and fo
 ### Server
 You must be on server directory before running these commands!
 
-The follwoing command is for make dev
+The following command is for starting the server
 ```bash
-docker-compose --env-file ./envs/dev.env up
+make dev
 ```
-The following commands are for make load
+The following commands is for loading data to server
 ```bash
-docker-compose up -d mongo 
+make load
 ```
+The following command is for deleting the data from the server
 ```bash
-$(PYTHON) scripts/load_data.py
-```
-The following commands are for make wipe
-```bash
-docker-compose down
-```
-```bash
-sudo rm -rf database
+make wipe
 ```
 ### Client
 You must be on client directory before running these commands!
