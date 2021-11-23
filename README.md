@@ -7,7 +7,7 @@ This application serves as a way for CETYS university to manage their lost and f
 ## Requirements
 - Python 3.9+
 - Docker 20.10+
-- docker compose 3.0+
+- docker compose 1.29+
 - make 4.1+
 - npm 6.14+
 - node 14.16+
