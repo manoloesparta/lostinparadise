@@ -59,7 +59,7 @@ function Login() {
               <label className="label">Matricula</label>
               <div className="control">
                 <input className="input"
-                  type="email"
+                  type="text"
                   placeholder="e.g. t030046"
                   required onChange={handleUsername}/>
               </div>
