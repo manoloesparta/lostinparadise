@@ -11,6 +11,7 @@ This application serves as a way for CETYS university to manage their lost and f
 - make 4.1+
 - npm 6.14+
 - node 14.16+
+- virtualenv 20.10+
 
 ## Usage
 
