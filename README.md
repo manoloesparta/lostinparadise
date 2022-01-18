@@ -1,3 +1,5 @@
+![Lost in Paradise Logo](./docs/logo.png)
+
 # Lost in Paradise
 
 > Funky music starts
