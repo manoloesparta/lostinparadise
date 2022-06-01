@@ -1,25 +1,22 @@
 name: Client
 
 on:
-
   push:
     paths:
-    - 'client/**'
-    branches: 
-    - client 
-  
+      - "client/**"
+    branches:
+      - client
+
   pull_request:
     paths:
-    - 'client/**'
+      - "client/**"
     branches:
-    - client 
-  
+      - client
+
   workflow_dispatch:
 
 jobs:
-
   verify-standards:
-
     name: Checking standards client pipeline
     runs-on: ubuntu-latest
 
@@ -34,7 +31,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 14.x
-      
+
       - name: Install dependencies
         run: |
           npm install

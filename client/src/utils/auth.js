@@ -1,44 +1,44 @@
-import React, {useState, createContext, useContext, useEffect} from 'react';
+import React, { useState, createContext, useContext, useEffect } from "react";
 
-const API_URL = 'http://localhost:5000';
+const API_URL = "http://localhost:5000";
 const authContext = createContext();
 
 function useProvideAuth() {
   const [authed, setAuthed] = useState(false);
 
-  const token = localStorage.getItem('user_token');
-  const config = {'method': 'POST', 'headers': {'x-jwt-key': token}};
+  const token = localStorage.getItem("user_token");
+  const config = { method: "POST", headers: { "x-jwt-key": token } };
 
   useEffect(async () => {
     if (token) {
-      const response = await fetch(API_URL + '/validate', config);
+      const response = await fetch(API_URL + "/validate", config);
       if (response.status == 200) {
         setAuthed(true);
       } else {
-        localStorage.removeItem('user_token');
+        localStorage.removeItem("user_token");
       }
     }
   }, []);
 
   const login = async (username, password) => {
     const config = {
-      'method': 'POST',
-      'body': JSON.stringify({username, password}),
+      method: "POST",
+      body: JSON.stringify({ username, password }),
     };
 
-    const response = await fetch(API_URL + '/login', config);
+    const response = await fetch(API_URL + "/login", config);
 
     if (response.status == 201) {
       const json = await response.json();
-      const token = json.data['x-jwt-key'];
-      localStorage.setItem('user_token', token);
+      const token = json.data["x-jwt-key"];
+      localStorage.setItem("user_token", token);
       setAuthed(true);
       return token;
     }
   };
 
   const logout = () => {
-    localStorage.removeItem('user_token');
+    localStorage.removeItem("user_token");
     setAuthed(false);
   };
 
@@ -49,14 +49,10 @@ function useProvideAuth() {
   };
 }
 
-export function AuthProvider({children}) {
+export function AuthProvider({ children }) {
   const auth = useProvideAuth();
 
-  return (
-    <authContext.Provider value={auth}>
-      {children}
-    </authContext.Provider>
-  );
+  return <authContext.Provider value={auth}>{children}</authContext.Provider>;
 }
 
 export default function useAuth() {

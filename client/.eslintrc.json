@@ -1,38 +1,31 @@
 {
-    "env": {
-        "browser": true,
-        "commonjs": true,
-        "es2021": true,
-        "jest/globals": true
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es2021": true,
+    "jest/globals": true
+  },
+  "extends": ["eslint:recommended", "plugin:react/recommended", "google"],
+  "parserOptions": {
+    "parser": "@babel/eslint-parser",
+    "ecmaFeatures": {
+      "jsx": true
     },
-    "extends": [
-        "eslint:recommended",
-        "plugin:react/recommended",
-        "google"
-    ],
-    "parserOptions": {
-        "parser": "@babel/eslint-parser",
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "ecmaVersion": 12,
-        "sourceType": "module"
-    },
-    "plugins": [
-        "react",
-        "jest"
-    ],
-    "settings": {
-        "react": {
-          "version": "detect"
-        }
-    },
-    "rules": {
-        "require-jsdoc": "off",
-        "linebreak-style": 0,
-        "no-valid-this": "off",
-        "react/prop-types": "off",
-        "react/jsx-key": "off",
-        "react/display-name": "off"
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "plugins": ["react", "jest"],
+  "settings": {
+    "react": {
+      "version": "detect"
     }
+  },
+  "rules": {
+    "require-jsdoc": "off",
+    "linebreak-style": 0,
+    "no-valid-this": "off",
+    "react/prop-types": "off",
+    "react/jsx-key": "off",
+    "react/display-name": "off"
+  }
 }

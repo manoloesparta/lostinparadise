@@ -4,156 +4,158 @@ These are the API endpoints the client will be communicating to.
 
 ## Users
 
-* POST /login
+- POST /login
 
-    Request
+  Request
 
-    ```json
-    {
-        "body": {
-            "username": "t030046",
-            "password": "ultrasecurepassword"
-        }
+  ```json
+  {
+    "body": {
+      "username": "t030046",
+      "password": "ultrasecurepassword"
     }
-    ```
+  }
+  ```
 
-    Response
+  Response
 
-    > Login Successfully
+  > Login Successfully
 
-    ```json
-    {
-        "status": 200,
-        "data": {
-            "x-jwt-key": "blah.blah.blah"
-        }
+  ```json
+  {
+    "status": 200,
+    "data": {
+      "x-jwt-key": "blah.blah.blah"
     }
-    ```
+  }
+  ```
 
-    > Not matched credentials
+  > Not matched credentials
 
-    ```json
-    {
-        "status": 400,
-        "error": "No match for username or password"
-    }
-    ```
+  ```json
+  {
+    "status": 400,
+    "error": "No match for username or password"
+  }
+  ```
 
 ## Status
 
-* GET /health
+- GET /health
 
-    Request
+  Request
 
-    ```json
-    {}
-    ```
+  ```json
+  {}
+  ```
 
-    Response
+  Response
 
-    > Server is up
+  > Server is up
 
-    ```json
-    {
-        "status": 200,
-        "message": "hello there"
-    }
-    ```
+  ```json
+  {
+    "status": 200,
+    "message": "hello there"
+  }
+  ```
 
 ## Auth
 
-* POST /validate
+- POST /validate
 
-    Request
+  Request
 
-    ```json
-    {
-        "headers": {
-            "x-jwt-key": "blah.blah.blah",
-        }
+  ```json
+  {
+    "headers": {
+      "x-jwt-key": "blah.blah.blah"
     }
-    ```
+  }
+  ```
 
-    Response
+  Response
 
-    > Valid
-    ```json
-    {
-        "status": 200,
-        "message": "user is registered"
-    }
-    ```
+  > Valid
 
-    > Invalid
-    ```json
-    {
-        "status": 400,
-        "error": "username not valid"
-    }
-    ```
+  ```json
+  {
+    "status": 200,
+    "message": "user is registered"
+  }
+  ```
+
+  > Invalid
+
+  ```json
+  {
+    "status": 400,
+    "error": "username not valid"
+  }
+  ```
 
 ## Search
 
-* POST /search
+- POST /search
 
-    Request
+  Request
 
-    ```json
-    {
-        "headers": {
-            "x-jwt-key": "blah.blah.blah"
+  ```json
+  {
+    "headers": {
+      "x-jwt-key": "blah.blah.blah"
+    },
+    "body": {
+      "query": "laptop gris"
+    }
+  }
+  ```
+
+  Response
+
+  > Matching results
+
+  ```json
+  {
+    "status": 200,
+    "data": {
+      "items": [
+        {
+          "id": "uuid",
+          "status": "Entregado",
+          "category": "Electronico",
+          "description": "Cargador Dell Punta chica Azul Salón 7307,",
+          "found": "2020-01-24"
         },
-        "body": {
-            "query": "laptop gris"
+        {
+          "id": "uuid",
+          "status": "Entregado",
+          "category": "Electronico",
+          "description": "Audífonos BITS, Salón 2201, ",
+          "date": "2019-09-05"
+        },
+        {
+          "id": "uuid",
+          "status": "Entregado",
+          "category": "Electronico",
+          "description": "Cargador HP 1303",
+          "date": "2019-11-07"
+        },
+        {
+          "id": "uuid",
+          "status": "Entregado",
+          "category": "Electronico",
+          "description": "Cargador Genérico Punta Grande Salón 1306,",
+          "date": "2019-09-23"
+        },
+        {
+          "id": "uuid",
+          "status": "Entregado",
+          "category": "Electronico",
+          "description": "Cargador LAPTOP GENERICO 1306",
+          "date": "2019-11-07"
         }
+      ]
     }
-    ```
-
-    Response
-
-    > Matching results
-
-    ```json
-    {
-        "status": 200,
-        "data": {
-            "items": [
-                {
-                    "id": "uuid",
-                    "status": "Entregado",
-                    "category": "Electronico",
-                    "description": "Cargador Dell Punta chica Azul Salón 7307,",
-                    "found": "2020-01-24"
-                },
-                {
-                    "id": "uuid",
-                    "status": "Entregado",
-                    "category": "Electronico",
-                    "description": "Audífonos BITS, Salón 2201, ",
-                    "date": "2019-09-05"
-                },
-                {
-                    "id": "uuid",
-                    "status": "Entregado",
-                    "category": "Electronico",
-                    "description": "Cargador HP 1303",
-                    "date": "2019-11-07"
-                },
-                {
-                    "id": "uuid",
-                    "status": "Entregado",
-                    "category": "Electronico",
-                    "description": "Cargador Genérico Punta Grande Salón 1306,",
-                    "date": "2019-09-23"
-                },
-                {
-                    "id": "uuid",
-                    "status": "Entregado",
-                    "category": "Electronico",
-                    "description": "Cargador LAPTOP GENERICO 1306",
-                    "date": "2019-11-07"
-                },
-            ]
-        }
-    }
-    ```
+  }
+  ```

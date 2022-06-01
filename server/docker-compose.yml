@@ -1,7 +1,6 @@
-version: '3'
+version: "3"
 
 services:
-
   server:
     build: .
     image: lostinp_server
@@ -26,7 +25,7 @@ services:
   auth:
     build: auth
     image: lostinp_fake_auth
-    container_name: fake_auth 
+    container_name: fake_auth
     ports:
       - 6666:6666
     volumes:
@@ -36,7 +35,7 @@ services:
 
   mongo:
     image: mongo
-    container_name: mongo 
+    container_name: mongo
     ports:
       - 27017:27017
     volumes:
@@ -50,11 +49,9 @@ services:
       MONGO_INITDB_DATABASE: lost_in_paradise
 
 networks:
-
   lostinp_network:
     name: lostinp_network
     driver: bridge
 
 volumes:
-
   lostinp_volume:

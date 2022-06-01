@@ -1,44 +1,45 @@
 body {
-    background-color: #F8F8F8 !important;
+  background-color: #f8f8f8 !important;
 }
 
 .column {
-    background-color: #F8F8F8 !important;
+  background-color: #f8f8f8 !important;
 }
 
 .columns {
-    margin-bottom: 0 !important;
+  margin-bottom: 0 !important;
 }
 
 .App {
-    background-color: #F8F8F8 !important;
+  background-color: #f8f8f8 !important;
 }
 
 #signin {
-    background-color: #EDBD00;
+  background-color: #edbd00;
 }
 
 ::placeholder {
-    color: black;
-    opacity: 1;
+  color: black;
+  opacity: 1;
 }
 
 .items {
-    margin-top: 30px;
-    overflow: hidden;
-    padding: 0 10px 10px 15px;
+  margin-top: 30px;
+  overflow: hidden;
+  padding: 0 10px 10px 15px;
 }
 
 .card {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
 .pagination {
-    margin-top: 30px !important;
+  margin-top: 30px !important;
 }
 
-.is-current, .logout {
-    background-color: #EDBD00 !important;
-    border: none;
-    color: #F8F8F8;
+.is-current,
+.logout {
+  background-color: #edbd00 !important;
+  border: none;
+  color: #f8f8f8;
 }

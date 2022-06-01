@@ -1,20 +1,20 @@
 // Libraries
-import React, {useEffect, useState} from 'react';
-import {useNavigate} from 'react-router-dom';
-import Swal from 'sweetalert2';
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 // Styles
-import './Login.css';
-import 'bulma/css/bulma.min.css';
+import "./Login.css";
+import "bulma/css/bulma.min.css";
 
 // Components
-import useAuth from '../utils/auth';
+import useAuth from "../utils/auth";
 
 function Login() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
-  const {authed, login} = useAuth();
+  const { authed, login } = useAuth();
   const navigate = useNavigate();
 
   const onSubmit = async (event) => {
@@ -22,18 +22,18 @@ function Login() {
     const success = await login(username, password);
     if (!success) {
       Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: '¿Trataste con tu matricula y contraseña de Mi Campus?',
-        confirmButtonColor: '#edbd00',
+        icon: "error",
+        title: "Oops...",
+        text: "¿Trataste con tu matricula y contraseña de Mi Campus?",
+        confirmButtonColor: "#edbd00",
       });
     }
-    navigate('/search');
+    navigate("/search");
   };
 
   useEffect(() => {
     if (authed) {
-      navigate('/search');
+      navigate("/search");
     }
   }, [authed]);
 
@@ -46,11 +46,17 @@ function Login() {
   };
 
   return (
-    <div className="container is-flex is-justify-content-center
-         is-align-items-center" style={{height: '100vh'}}>
-      <div className="columns" style={{width: '100vw'}}>
+    <div
+      className="container is-flex is-justify-content-center
+         is-align-items-center"
+      style={{ height: "100vh" }}
+    >
+      <div className="columns" style={{ width: "100vw" }}>
         <div className="column">
-          <h1 className="title is-1 is-spaced">Cosas <br/>Perdidas</h1>
+          <h1 className="title is-1 is-spaced">
+            Cosas <br />
+            Perdidas
+          </h1>
           <h2 className="subtitle">by CETYS</h2>
         </div>
         <div className="column">
@@ -58,27 +64,37 @@ function Login() {
             <div className="field">
               <label className="label">Matricula</label>
               <div className="control">
-                <input className="input"
+                <input
+                  className="input"
                   type="text"
                   placeholder="e.g. t030046"
-                  required onChange={handleUsername}/>
+                  required
+                  onChange={handleUsername}
+                />
               </div>
             </div>
 
             <div className="field">
               <label className="label">Contraseña</label>
               <div className="control">
-                <input className="input"
+                <input
+                  className="input"
                   type="password"
                   placeholder="********"
-                  required onChange={handlePassword}/>
+                  required
+                  onChange={handlePassword}
+                />
               </div>
             </div>
-            <hr/>
-            <button className="button is-primary"
+            <hr />
+            <button
+              className="button is-primary"
               id="signin"
               type="button"
-              onClick={onSubmit}>Sign in</button>
+              onClick={onSubmit}
+            >
+              Sign in
+            </button>
           </form>
         </div>
       </div>
